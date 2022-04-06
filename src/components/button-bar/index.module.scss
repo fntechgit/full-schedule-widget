@@ -14,6 +14,8 @@
   }
 
   .button {
+    box-shadow: none !important;
+    
     input {
       display: none;
     }
@@ -30,10 +32,6 @@
 
     &.share {
       @extend %button-small-outline;
-    }
-
-    &:global(:focus) {
-      box-shadow: none !important;
     }
 
     &:global(.active),
@@ -78,7 +76,7 @@
         }
       }
 
-      .secondGroup {
+      .secondGroup div {
         margin-top: 10px;
         width: 100%;
 
