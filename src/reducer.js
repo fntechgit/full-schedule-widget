@@ -13,9 +13,7 @@
 
 import moment from "moment";
 import {getNowFromQS} from './tools/utils';
-import { LOGOUT_USER } from 'openstack-uicore-foundation/lib/actions';
-
-
+import { LOGOUT_USER } from 'openstack-uicore-foundation/lib/utils/actions';
 import {
     START_WIDGET_LOADING,
     STOP_WIDGET_LOADING,
@@ -93,7 +91,6 @@ const WidgetReducer = (state = DEFAULT_STATE, action) => {
 
                 return ({...ev, startTimeAtTimezone, endTimeAtTimezone, isScheduled, eventColor })
             });
-
             return {
                 ...state,
                 summit,

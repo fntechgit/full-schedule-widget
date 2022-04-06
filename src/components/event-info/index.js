@@ -12,15 +12,16 @@
  **/
 
 import React from 'react';
-import { CircleButton, RawHTML } from 'openstack-uicore-foundation/lib/components';
+import CircleButton from 'openstack-uicore-foundation/lib/components/circle-button';
+import RawHTML from 'openstack-uicore-foundation/lib/components/raw-html';
 import EventCountdown from "../countdown";
 import Speakers from "../event-card/speakers";
 import { getLocation } from "../../tools/utils";
 
 import styles from './index.module.scss';
-import { link, circleButton } from "../../styles/general.module.scss";
-import ReactTooltip from "react-tooltip";
+import style2 from "../../styles/general.module.scss";
 
+const {circleButton, link } = style2;
 
 const EventInfo = ({
     event,

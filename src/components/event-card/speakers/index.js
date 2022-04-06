@@ -17,7 +17,7 @@ import ReactTooltip from "react-tooltip";
 import SpeakerInfo from "../../speaker-info";
 
 import styles from './index.module.scss'
-import {tooltip} from '../../../styles/general.module.scss';
+import styles2 from '../../../styles/general.module.scss';
 
 const Speakers = ({event, withPic, onChat, onEmail, className, showSendEmail}) => {
 
@@ -62,7 +62,7 @@ const Speakers = ({event, withPic, onChat, onEmail, className, showSendEmail}) =
                     </div>
                 </div>
                 <ReactTooltip
-                    className={tooltip}
+                    className={styles2.tooltip}
                     delayShow={200}
                     id={`speakerInfo-${sp.id}`}
                     type='light'

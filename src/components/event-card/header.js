@@ -13,13 +13,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { RawHTML } from 'openstack-uicore-foundation/lib/components';
+import RawHTML from 'openstack-uicore-foundation/lib/components/raw-html';
 import { getLocation } from "../../tools/utils";
 import FallbackImage from '../fallbackImage';
 import Speakers from "./speakers";
 
 import styles from './event.module.scss';
-import { link } from '../../styles/general.module.scss';
+import styles2 from '../../styles/general.module.scss';
 
 const EventHeader = ({
     summit,
@@ -41,7 +41,7 @@ const EventHeader = ({
         };
 
         if (onEventClick) {
-            return <a className={link} href={'#;'} onClick={handleClick}>{event.title}</a>
+            return <a className={styles2.link} href={'#;'} onClick={handleClick}>{event.title}</a>
         } else {
             return event.title;
         }

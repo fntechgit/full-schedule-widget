@@ -26,7 +26,6 @@ const Calendar = ({events, settings, summit, addEventToSchedule, removeEventFrom
     const [eventDetails, setEventDetails] = useState(null);
     const [infoPos, setInfoPos] = useState([0,0]);
     const groupedEvents = [];
-
     useEffect(() => {
         const closeEventInfo = (ev) => {
             const wrapper = document.getElementById('event-info-popup');

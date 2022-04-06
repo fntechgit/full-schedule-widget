@@ -51,3 +51,7 @@ import 'full-schedule-widget/index.css';
 You can pass this hash on url to override current time, time must be in this format and on summit timezone
 
 \#now=2020-06-03,10:59:50
+
+# Utils
+
+$ npm rebuild node-sass --force

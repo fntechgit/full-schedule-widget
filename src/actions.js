@@ -11,7 +11,7 @@
  * limitations under the License.
  **/
 
-import { createAction } from "openstack-uicore-foundation/lib/methods";
+import { createAction } from "openstack-uicore-foundation/lib/utils/actions";
 
 export const START_WIDGET_LOADING           = 'START_WIDGET_LOADING';
 export const STOP_WIDGET_LOADING            = 'STOP_WIDGET_LOADING';

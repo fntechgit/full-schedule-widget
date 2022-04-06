@@ -15,11 +15,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import EventHeader from './header';
 import EventCountdown from "../countdown";
-import {CircleButton} from "openstack-uicore-foundation/lib/components";
+import CircleButton from "openstack-uicore-foundation/lib/components/circle-button";
 
 
 import styles from './event.module.scss'
-import {circleButton} from "../../styles/general.module.scss";
+import styles2 from "../../styles/general.module.scss";
 
 class Event extends Component {
 
@@ -69,7 +69,6 @@ class Event extends Component {
     render() {
         const { event, summit, settings } = this.props;
         const { expanded, showDetailsButton } = this.state;
-
         return (
             <div
                 className={`${styles.wrapper} ${expanded && styles.expanded} event-wrapper`}
@@ -79,7 +78,7 @@ class Event extends Component {
                 onMouseLeave={() => this.setState({showDetailsButton: false})}
             >
                 <EventCountdown event={event} nowUtc={settings.nowUtc} className={styles.countdown} />
-                <div className={`${styles.circleButton} ${circleButton}`} data-tip={event.isScheduled ? 'added to schedule' : 'Add to my schedule'}>
+                <div className={`${styles.circleButton} ${styles2.circleButton}`} data-tip={event.isScheduled ? 'added to schedule' : 'Add to my schedule'}>
                     <CircleButton
                         event={event}
                         isScheduled={event.isScheduled}

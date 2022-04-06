@@ -12,61 +12,30 @@
  **/
 
 import React from 'react';
-import { connect } from 'react-redux';
-import EventList from '../components/event-list';
-import Calendar from './calendar';
-import { AjaxLoader, Clock } from 'openstack-uicore-foundation/lib/components';
-import {
-  loadSettings,
-  updateClock,
-  changeView,
-  changeTimezone,
-  updateEvents,
-  updateSettings,
-} from '../actions';
+import {connect} from "react-redux";
+import EventList from "../components/event-list";
+import Calendar from "./calendar";
+import AjaxLoader from 'openstack-uicore-foundation/lib/components/ajaxloader';
+import Clock from 'openstack-uicore-foundation/lib/components/clock';
+import {loadSettings, updateClock, changeView, changeTimezone, updateEvents, updateSettings} from "../actions";
 import ButtonBar from './button-bar';
 import Modal from './modal';
 
-import styles from '../styles/general.module.scss';
-import 'openstack-uicore-foundation/lib/css/components.css';
+import 'openstack-uicore-foundation/lib/css/components/circle-button.css';
+import styles from "../styles/general.module.scss";
 
 class Schedule extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
+        this.state = {
+            showSyncModal: false,
+            showShareModal: false,
+        }
+    }
 
-    this.state = {
-      showSyncModal: false,
-      showShareModal: false,
-    };
-  }
-
-  componentDidMount() {
-    const { updateEventList, loadSettings, changeView, updateClock, ...rest } =
-      this.props;
-    loadSettings(rest);
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    const {
-      events: prevEvents,
-      shareLink: prevShareLink,
-      view: prevView,
-      timezone: prevTimezone,
-    } = prevProps;
-    const { events, updateEvents, shareLink, view, updateSettings, timezone } =
-      this.props;
-    const prevEventsIds = prevEvents.map((e) => e.id);
-    const eventsIds = events.map((e) => e.id);
-    const eventsChanged =
-      prevEventsIds.length !== eventsIds.length ||
-      !prevEventsIds.every((v, i) => v === eventsIds[i]);
-
-    if (
-      shareLink !== prevShareLink ||
-      view !== prevView ||
-      timezone !== prevTimezone
-    ) {
-      updateSettings({ shareLink, view, timezone });
+    componentDidMount() {
+        const {updateEventList, loadSettings, changeView, updateClock, ...rest} = this.props;
+        loadSettings(rest);
     }
 
     if (eventsChanged || timezone !== prevTimezone) {
