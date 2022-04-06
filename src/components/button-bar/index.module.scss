@@ -38,6 +38,10 @@
       @extend %button-small-outline;
     }
 
+    &:global(:focus) {
+      box-shadow: none !important;
+    }
+
     &:global(.active),
     &:global(:focus),
     &:global(:hover) {
