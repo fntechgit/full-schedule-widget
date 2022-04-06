@@ -11,6 +11,12 @@
 
   .buttonGroup {
     display: flex;
+
+    .secondGroup {
+      input {
+        display: none;
+      }
+    }
   }
 
   .button {
@@ -32,8 +38,11 @@
       @extend %button-small-outline;
     }
 
-    &:global(.active) {
+    &:global(.active),
+    &:global(:focus),
+    &:global(:hover) {
       background-color: var(--color_gray_darker) !important;
+      border-color: var(--color_gray_darker) !important;
       color: var(--color_text_light) !important;
     }
 
@@ -71,7 +80,7 @@
         }
       }
 
-      .secondGroup div {
+      .secondGroup {
         margin-top: 10px;
         width: 100%;
 

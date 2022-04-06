@@ -4,9 +4,8 @@
   width: 100%;
 
   .wrapper {
-    height: 63px;
     border-radius: 4px;
-    padding: 5px 16px;
+    padding:16px;
     cursor: pointer;
     z-index: 1;
     margin-right: 5px;
@@ -16,7 +15,6 @@
     float:left;
 
     .title {
-      margin-bottom: 12px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -25,6 +23,7 @@
     }
 
     .speakers {
+      margin-top: 12px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;

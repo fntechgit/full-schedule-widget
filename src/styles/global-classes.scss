@@ -94,21 +94,23 @@
 
 
 %button-small-primary {
-  border-radius: 4px;
   height: 39px;
-  color: var(--color_text_light);
   background-color: var(--color_secondary);
+  color: var(--color_text_light);
+  border-radius: 4px;
   font-size: 15px;
+  line-height: 18px;
 
   @extend %font-regular;
 }
 
 %button-small-secondary {
-  border-radius: 4px;
   height: 39px;
-  color: var(--color_text_med);
   background-color: var(--color_gray_light);
+  color: var(--color_text_med);
+  border-radius: 4px;
   font-size: 15px;
+  line-height: 18px;
 
   @extend %font-regular;
 }
