@@ -14,6 +14,10 @@
   }
 
   .button {
+    box-shadow: none !important;
+    display: inline-flex;
+    align-items: center;
+
     input {
       display: none;
     }
@@ -32,8 +36,11 @@
       @extend %button-small-outline;
     }
 
+    &:focus,
+    &:hover,
     &:global(.active) {
       background-color: var(--color_gray_darker) !important;
+      border-color: var(--color_gray_darker) !important;
       color: var(--color_text_light) !important;
     }
 
