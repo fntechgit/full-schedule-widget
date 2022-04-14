@@ -1,22 +1,19 @@
 @import "src/styles/global-classes";
 
 .outerWrapper {
-  width: 100%;
+  max-width: 100%;
 
   .wrapper {
+    min-width: 50px;
     height: 63px;
     border-radius: 4px;
     padding: 5px 16px;
     cursor: pointer;
     z-index: 1;
-    margin-right: 5px;
-    min-width: 50px;
-    max-width: 90%;
-    margin-bottom: 5px;
-    float:left;
 
     .title {
       margin-bottom: 12px;
+      line-height: 22px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -25,10 +22,10 @@
     }
 
     .speakers {
+      color: var(--color_text_dark);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      color: var(--color_text_dark);
 
       .speaker {
         @extend %title-tiny;
