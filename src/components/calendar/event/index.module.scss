@@ -4,15 +4,40 @@
   max-width: 100%;
 
   .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     min-width: 50px;
     height: 63px;
     border-radius: 4px;
-    padding: 5px 16px;
+    padding: 8px;
     cursor: pointer;
-    z-index: 1;
+
+    .eventHeader {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      column-gap: 8px;
+    }
+
+    .live, .speakers, .title {
+      margin-bottom: 0;
+    }
+
+    .live {
+      background-color: white;
+      border-radius: 4px;
+      color: red;
+      display: inline-block;
+      font-size: 9px;
+      letter-spacing: 1px;
+      padding: 4px;
+      text-align: center;
+      width: 62px;
+    }
 
     .title {
-      margin-bottom: 12px;
+      flex: 1;
       line-height: 22px;
       overflow: hidden;
       text-overflow: ellipsis;

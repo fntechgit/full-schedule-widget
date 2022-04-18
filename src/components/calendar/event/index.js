@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import styles from './index.module.scss';
 
 const Event = ({ event, onEventClick }) => {
+  const isLive =
+    event.startTimeAtTimezone._i / 1000 <= nowUtc &&
+    nowUtc <= event.endTimeAtTimezone._i / 1000;
+
   const eventStyles = {
     backgroundColor: event.eventColor,
   };
@@ -35,7 +39,11 @@ const Event = ({ event, onEventClick }) => {
         style={eventStyles}
         onClick={(ev) => onEventClick(ev, event)}
       >
-        <p className={styles.title}>{event.title}</p>
+        <div className={styles.eventHeader}>
+          {isLive && <p className={styles.live}>LIVE NOW</p>}
+          <p className={styles.title}>{event.title}</p>
+        </div>
+
         {speakers.length > 0 && (
           <p className={styles.speakers}>By {speakers}</p>
         )}

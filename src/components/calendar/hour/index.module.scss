@@ -3,11 +3,29 @@
   flex-wrap: wrap;
 
   .timeWrapper {
-    width: 80px;
+    width: 96px;
     color: #acacac;
 
     .time {
       position: relative;
+    }
+
+    .justStartedTime {
+      color: red;
+      position: relative;
+
+      &:before {
+        color: red;
+        content: '•';
+        display: inline-block;
+      }
+    }
+
+    .justStartedText {
+      color: red;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-align: center;
     }
   }
 
