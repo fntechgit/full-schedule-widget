@@ -5,7 +5,7 @@ import Hour from '../hour';
 import styles from './index.module.scss';
 
 const fallsWithinTheTimeBlock = (startTime, endTime, timeToCheck) =>
-  startTime <= timeToCheck && timeToCheck <= endTime;
+  startTime <= timeToCheck && timeToCheck < endTime;
 
 const Day = ({ dateString, dateStringDay, hours, nowUtc, onEventClick }) => (
   <div className={styles.wrapper}>
@@ -14,7 +14,7 @@ const Day = ({ dateString, dateStringDay, hours, nowUtc, onEventClick }) => (
     </div>
 
     <div>
-      {hours.map((hour) => {
+      {hours.map((hour, index, hours) => {
         const endTimeOfLastEvent =
           hour.events[hour.events.length - 1].endTimeAtTimezone._i / 1000;
 

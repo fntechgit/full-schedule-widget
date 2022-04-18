@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './index.module.scss';
 
-const Event = ({ event, onEventClick }) => {
+const Event = ({ event, nowUtc, onEventClick }) => {
   const isLive =
     event.startTimeAtTimezone._i / 1000 <= nowUtc &&
     nowUtc <= event.endTimeAtTimezone._i / 1000;
