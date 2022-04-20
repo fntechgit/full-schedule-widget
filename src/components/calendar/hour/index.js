@@ -6,7 +6,7 @@ import styles from './index.module.scss';
 
 const Hour = ({ hourLabel, events, justStarted, nowUtc, onEventClick }) => {
   return (
-    <div className={styles.wrapper}>
+    <div id={justStarted && `live-now`} className={styles.wrapper}>
       <div className={styles.timeWrapper}>
         <div
           className={`${justStarted ? styles.justStartedTime : styles.time}`}

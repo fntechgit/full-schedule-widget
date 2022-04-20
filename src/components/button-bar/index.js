@@ -31,6 +31,15 @@ const ButtonBar = ({
         <span id='timezone'>{timezoneLabel}</span>
       </Button>
 
+      <Button
+        className={`${styles.button} ${styles.liveNowBtn}`}
+        disabled={!document.querySelector('#live-now')}
+        href='#live-now'
+      >
+        <i className='fa fa-share' aria-hidden='true' />
+        Jump To Live
+      </Button>
+
       <div className={styles.buttonGroup}>
         <div className={styles.firstGroup}>
           <Button onClick={onSync} className={`${styles.button} ${styles.cal}`}>
