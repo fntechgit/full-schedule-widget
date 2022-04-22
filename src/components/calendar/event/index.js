@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import liveNowPill from '../../../images/live-now-pill.svg';
 import styles from './index.module.scss';
 
 const Event = ({ event, nowUtc, onEventClick }) => {
@@ -40,7 +41,13 @@ const Event = ({ event, nowUtc, onEventClick }) => {
         onClick={(ev) => onEventClick(ev, event)}
       >
         <div className={styles.eventHeader}>
-          {isLive && <p className={styles.live}>LIVE NOW</p>}
+          {isLive && (
+            <img
+              className={styles.liveNowIcon}
+              src={liveNowPill}
+              alt='This event is live now'
+            />
+          )}
           <p className={styles.title}>{event.title}</p>
         </div>
 

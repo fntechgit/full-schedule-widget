@@ -60,6 +60,7 @@
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
     "superagent": "^3.8.1",
+    "svgo-loader": "^3.0.0",
     "sweetalert2": "^8.19.0",
     "timesync": "^1.0.5",
     "urijs": "^1.19.1",

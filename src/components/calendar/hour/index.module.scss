@@ -11,21 +11,24 @@
     }
 
     .justStartedTime {
-      color: red;
+      color: #ff5e32;
+      font-weight: bold;
       position: relative;
+      text-transform: uppercase;
 
       &:before {
-        color: red;
+        color: #ff5e32;
         content: '•';
         display: inline-block;
+        margin-right: 8px;
       }
     }
 
     .justStartedText {
-      color: red;
+      color: #ff5e32;
       font-size: 9px;
+      font-weight: bold;
       letter-spacing: 1px;
-      text-align: center;
     }
   }
 

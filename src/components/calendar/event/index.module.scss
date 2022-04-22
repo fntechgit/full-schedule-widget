@@ -26,14 +26,17 @@
 
     .live {
       background-color: white;
-      border-radius: 4px;
-      color: red;
+      border-radius: 9px;
+      color: #ff5e32;
       display: inline-block;
       font-size: 9px;
       letter-spacing: 1px;
       padding: 4px;
       text-align: center;
-      width: 62px;
+
+      .liveNowIcon {
+        margin-right: 4px;
+      }
     }
 
     .title {
