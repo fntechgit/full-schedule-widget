@@ -7,39 +7,35 @@ import styles from './index.module.scss';
 const fallsWithinTheTimeBlock = (startTime, endTime, timeToCheck) =>
   startTime <= timeToCheck && timeToCheck < endTime;
 
-const Day = ({ dateString, dateStringDay, hours, nowUtc, onEventClick }) => {
-  nowUtc = +new Date(Date.UTC('2021', '10', '9', '17', '30', '0', '0')) / 1000;
-
-  return (
-    <div className={styles.wrapper}>
-      <div className={styles.dayLabel}>
-        <span className={styles.day}>{dateStringDay}</span>, {dateString}
-      </div>
-
-      <div>
-        {hours.map((hour, index, hours) => {
-          const endTimeOfLastEvent =
-            hour.events[hour.events.length - 1].endTimeAtTimezone._i / 1000;
-
-          const lastItem = index === hours.length - 1;
-          const justStarted = lastItem
-            ? fallsWithinTheTimeBlock(hour.hour, endTimeOfLastEvent, nowUtc)
-            : fallsWithinTheTimeBlock(hour.hour, hours[index + 1].hour, nowUtc);
-
-          return (
-            <Hour
-              {...hour}
-              justStarted={justStarted}
-              nowUtc={nowUtc}
-              onEventClick={onEventClick}
-              key={`cal-hr-${hour.hour}`}
-            />
-          );
-        })}
-      </div>
+const Day = ({ dateString, dateStringDay, hours, nowUtc, onEventClick }) => (
+  <div className={styles.wrapper}>
+    <div className={styles.dayLabel}>
+      <span className={styles.day}>{dateStringDay}</span>, {dateString}
     </div>
-  );
-};
+
+    <div>
+      {hours.map((hour, index, hours) => {
+        const endTimeOfLastEvent =
+          hour.events[hour.events.length - 1].endTimeAtTimezone._i / 1000;
+
+        const lastItem = index === hours.length - 1;
+        const justStarted = lastItem
+          ? fallsWithinTheTimeBlock(hour.hour, endTimeOfLastEvent, nowUtc)
+          : fallsWithinTheTimeBlock(hour.hour, hours[index + 1].hour, nowUtc);
+
+        return (
+          <Hour
+            {...hour}
+            justStarted={justStarted}
+            nowUtc={nowUtc}
+            onEventClick={onEventClick}
+            key={`cal-hr-${hour.hour}`}
+          />
+        );
+      })}
+    </div>
+  </div>
+);
 
 Day.propTypes = {
   dateString: PropTypes.string.isRequired,
