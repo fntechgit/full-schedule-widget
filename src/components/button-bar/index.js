@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 
 import styles from './index.module.scss';
+import hourStyles from '../calendar/hour/index.module.scss';
 
 const ButtonBar = ({
   view,
@@ -14,6 +15,13 @@ const ButtonBar = ({
 }) => {
   const isLocalTZ = timezone === 'local';
   const timezoneLabel = isLocalTZ ? 'Your Local Timezone' : summitTimezoneLabel;
+
+  useEffect(() => {
+    const liveEventHappening = document.getElementById(`${hourStyles.liveNow}`);
+
+    if (liveEventHappening)
+      liveEventHappening.scrollIntoView({ behavior: 'smooth' });
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -33,8 +41,8 @@ const ButtonBar = ({
 
       <Button
         className={`${styles.button} ${styles.liveNowBtn}`}
-        disabled={!document.querySelector('#live-now')}
-        href='#live-now'
+        disabled={!document.querySelector(`#${hourStyles.liveNow}`)}
+        href={`#${hourStyles.liveNow}`}
       >
         <i className='fa fa-share' aria-hidden='true' />
         Jump To Live

@@ -19,9 +19,8 @@ const Day = ({ dateString, dateStringDay, hours, nowUtc, onEventClick }) => (
           hour.events[hour.events.length - 1].endTimeAtTimezone._i / 1000;
 
         const lastItem = index === hours.length - 1;
-        const justStarted = lastItem
-          ? fallsWithinTheTimeBlock(hour.hour, endTimeOfLastEvent, nowUtc)
-          : fallsWithinTheTimeBlock(hour.hour, hours[index + 1].hour, nowUtc);
+        const endTime = lastItem ? endTimeOfLastEvent : hours[index + 1];
+        const justStarted = fallsWithinTheTimeBlock(hour.hour, endTime, nowUtc);
 
         return (
           <Hour
