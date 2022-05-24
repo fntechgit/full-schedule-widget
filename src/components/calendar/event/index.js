@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 
 import liveNowPill from '../../../images/live-now-pill.svg';
 import styles from './index.module.scss';
+import { isLive } from '../../../tools/utils';
 
 const Event = ({ event, nowUtc, onEventClick }) => {
-  const isLive =
-    event.startTimeAtTimezone._i / 1000 <= nowUtc &&
-    nowUtc <= event.endTimeAtTimezone._i / 1000;
-
   const eventStyles = {
     backgroundColor: event.eventColor,
   };
@@ -41,7 +38,7 @@ const Event = ({ event, nowUtc, onEventClick }) => {
         onClick={(ev) => onEventClick(ev, event)}
       >
         <div className={styles.eventHeader}>
-          {isLive && (
+          {isLive(event, nowUtc) && (
             <img
               className={styles.liveNowIcon}
               src={liveNowPill}
