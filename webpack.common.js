@@ -66,7 +66,12 @@ module.exports = {
             },
             {
                 test: /\.svg/,
-                use: "file-loader?name=svg/[name].[ext]!svgo-loader"
+                use: {
+                    loader: 'svg-url-loader',
+                    options: {
+                        limit: 10000,
+                    },
+                },
             },
             {
               test: /\.jpg|\.png|\.gif$/,
