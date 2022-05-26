@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import liveNowPill from '../../../images/live-now-pill.svg';
 import styles from './index.module.scss';
 import { isLive } from '../../../tools/utils';
 import SvgLiveNowPill from '../live-now-pill';
