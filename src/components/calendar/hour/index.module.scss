@@ -3,11 +3,19 @@
   flex-wrap: wrap;
 
   .timeWrapper {
-    width: 80px;
+    width: 96px;
     color: #acacac;
 
     .time {
       position: relative;
+      text-transform: uppercase;
+    }
+
+    .justStartedText {
+      color: #ff5e32;
+      font-size: 9px;
+      font-weight: bold;
+      letter-spacing: 1px;
     }
   }
 
@@ -16,8 +24,24 @@
     flex-wrap: wrap;
     flex: 1;
     gap: 5px;
-    max-width: calc(100% - 80px);
+    max-width: calc(100% - 96px);
     border-top: 1px solid #E5E5E5;
     padding: 5px;
+  }
+}
+
+#liveNow {
+  .time {
+    color: #ff5e32;
+    font-weight: bold;
+    position: relative;
+    text-transform: uppercase;
+
+    &:before {
+      color: #ff5e32;
+      content: '•';
+      display: inline-block;
+      margin-right: 8px;
+    }
   }
 }

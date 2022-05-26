@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import { scroller } from 'react-scroll/modules';
 
 import styles from './index.module.scss';
 
 const ButtonBar = ({
+  currentHour,
   view,
   timezone,
   summitTimezoneLabel,
@@ -14,6 +16,10 @@ const ButtonBar = ({
 }) => {
   const isLocalTZ = timezone === 'local';
   const timezoneLabel = isLocalTZ ? 'Your Local Timezone' : summitTimezoneLabel;
+
+  useEffect(() => {
+    scroller.scrollTo('currentHour');
+  }, [currentHour]);
 
   return (
     <div className={styles.wrapper}>
@@ -29,6 +35,15 @@ const ButtonBar = ({
       >
         <i className='fa fa-clock-o' aria-hidden='true' />
         <span id='timezone'>{timezoneLabel}</span>
+      </Button>
+
+      <Button
+        className={`${styles.button} ${styles.liveNowBtn}`}
+        disabled={!currentHour}
+        onClick={() => scroller.scrollTo('currentHour')}
+      >
+        <i className='fa fa-share' aria-hidden='true' />
+        Jump To Live
       </Button>
 
       <div className={styles.buttonGroup}>

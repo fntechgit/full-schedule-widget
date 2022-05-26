@@ -19,6 +19,8 @@ import EventsData from './dummy_data/events.json';
 import SummitData from './dummy_data/summit.json';
 import marketingSettings from './dummy_data/marketing-data.json'
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const scheduleProps = {
     events: EventsData,
     summit: SummitData.summit,

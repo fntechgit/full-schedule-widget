@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import liveNowPill from '../../../images/live-now-pill.svg';
 import styles from './index.module.scss';
+import { isLive } from '../../../tools/utils';
 
-const Event = ({ event, onEventClick }) => {
+const Event = ({ event, nowUtc, onEventClick }) => {
   const eventStyles = {
     backgroundColor: event.eventColor,
   };
@@ -35,7 +37,17 @@ const Event = ({ event, onEventClick }) => {
         style={eventStyles}
         onClick={(ev) => onEventClick(ev, event)}
       >
-        <p className={styles.title}>{event.title}</p>
+        <div className={styles.eventHeader}>
+          {isLive(event, nowUtc) && (
+            <img
+              className={styles.liveNowIcon}
+              src={liveNowPill}
+              alt='This event is live now'
+            />
+          )}
+          <p className={styles.title}>{event.title}</p>
+        </div>
+
         {speakers.length > 0 && (
           <p className={styles.speakers}>By {speakers}</p>
         )}

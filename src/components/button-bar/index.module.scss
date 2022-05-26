@@ -47,6 +47,23 @@
     @extend %button-toggle;
   }
 
+  .liveNowBtn {
+    margin-left: 8px;
+    margin-right: auto;
+    width: auto;
+
+    @media screen and (max-width: 690px) {
+      margin: 10px auto 0;
+      width: 100%;
+    }
+
+    &:global(.disabled) {
+      background-color: lightgrey !important;
+      border-color: lightgrey !important;
+      color: grey !important;
+    }
+  }
+
   .divider {
     display: inline-flex;
     border-right: 1px solid lightgray;
