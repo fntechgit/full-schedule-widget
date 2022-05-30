@@ -25,7 +25,6 @@
     position: fixed;
     height: 100vh;
     overflow: auto;
-    padding-bottom: 50px;
   }
 
   .header {
@@ -121,7 +120,9 @@
     }
 
     @media (max-width: 767px) {
-      margin-bottom: 50px;
+      position: absolute;
+      right: 15px;
+      bottom: 90px;
     }
   }
 
