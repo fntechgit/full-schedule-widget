@@ -16,7 +16,7 @@ Full version React component for the show schedule
    
    ** onStartChat(speakerId)    = method called upon click on "Chat with Speaker", if null then button is hidden
     
-   ** needsLogin()              = method called when schedule needs user to login - for example on "Add to Schedule".
+   ** needsLogin(pendingAction) = method called when schedule needs user to login - for example on "Add to Schedule".
    
    title            = widget title, defaults to "Schedule"
    

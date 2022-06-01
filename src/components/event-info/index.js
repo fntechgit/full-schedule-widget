@@ -68,7 +68,8 @@ const EventInfo = ({
         if (loggedUser) {
             addToSchedule(event);
         } else {
-            needsLogin();
+            const pendingAction = { action: 'ADD_EVENT', event}
+            needsLogin(pendingAction);
         }
     };
 
@@ -76,7 +77,8 @@ const EventInfo = ({
         if (loggedUser) {
             removeFromSchedule(event);
         } else {
-            needsLogin();
+            const pendingAction = { action: 'REMOVE_EVENT', event}
+            needsLogin(pendingAction);
         }
     };
 
