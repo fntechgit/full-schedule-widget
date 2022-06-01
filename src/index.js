@@ -35,7 +35,7 @@ const scheduleProps = {
     onStartChat: console.log,
     showSendEmail: true,
     shareLink: 'santi.com/share',
-    needsLogin: () => console.log('login needed'),
+    needsLogin: (pendingEvent) => console.log('login needed', pendingEvent),
     triggerAction: (action, payload) => new Promise((resolve, reject) => {
         setTimeout(() => {
             console.log('loading...', action, payload);

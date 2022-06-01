@@ -38,7 +38,7 @@ class Event extends Component {
         if (loggedUser) {
             this.props.onAddEvent(event);
         } else {
-            settings.needsLogin();
+            settings.needsLogin(event);
         }
     };
 
@@ -48,7 +48,7 @@ class Event extends Component {
         if (loggedUser) {
             this.props.onRemoveEvent(event);
         } else {
-            settings.needsLogin();
+            settings.needsLogin(event);
         }
     };
 

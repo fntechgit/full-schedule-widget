@@ -67,7 +67,7 @@ const EventInfo = ({
         if (loggedUser) {
             addToSchedule(event);
         } else {
-            needsLogin();
+            needsLogin(event);
         }
     };
 
@@ -75,7 +75,7 @@ const EventInfo = ({
         if (loggedUser) {
             removeFromSchedule(event);
         } else {
-            needsLogin();
+            needsLogin(event);
         }
     };
 
