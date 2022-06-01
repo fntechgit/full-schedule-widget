@@ -12,7 +12,11 @@
  **/
 
 import moment from 'moment';
-import { getCurrentHourFromEvents, getNowFromQS } from './tools/utils';
+import {
+  fallsWithinTheTimeBlock,
+  getCurrentHourFromEvents,
+  getNowFromQS,
+} from './tools/utils';
 import { LOGOUT_USER } from 'openstack-uicore-foundation/lib/utils/actions';
 import {
   START_WIDGET_LOADING,
@@ -256,10 +260,23 @@ const getEventColor = (colorSource, event) => {
 const getTimeWithOffset = (time, timeZone, summit) => {
   const date = new Date();
   const localOffset = date.getTimezoneOffset() * 60 * -1;
-  const offset = timeZone === 'show' ? summit?.time_zone.offset : localOffset;
+  const offset =
+    timeZone === 'show' ? getOffsetForSummit(time, summit) : localOffset;
   const newTimeUtc = (time + offset) * 1000;
 
   return moment.utc(newTimeUtc);
+};
+
+const getOffsetForSummit = (time, summit) => {
+  if (!summit.time_zone.offsets) return summit.time_zone.offset;
+
+  const offset = summit.time_zone.offsets.find((offset) =>
+    fallsWithinTheTimeBlock(offset.from, offset.to, time)
+  );
+
+  if (!offset) return summit.time_zone.offset;
+
+  return offset.offset;
 };
 
 export default WidgetReducer;
