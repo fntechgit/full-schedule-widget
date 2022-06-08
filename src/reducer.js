@@ -260,11 +260,9 @@ const getEventColor = (colorSource, event) => {
 const getTimeWithOffset = (time, timeZone, summit) => {
   const date = new Date();
   const localOffset = date.getTimezoneOffset() * 60 * -1;
-  const offset =
-    timeZone === 'show' ? getOffsetForSummit(time, summit) : localOffset;
-  const newTimeUtc = (time + offset) * 1000;
-
-  return moment.utc(newTimeUtc);
+  const currentOffset = getOffsetForSummit(time, summit);
+  const offset = timeZone === 'show' ?  currentOffset: localOffset;
+  return moment.unix(time).utcOffset(offset ? offset/60 : 0);
 };
 
 const getOffsetForSummit = (time, summit) => {

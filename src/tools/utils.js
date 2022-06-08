@@ -20,7 +20,6 @@ const fragmentParser = new FragmentParser();
 export const isLive = (event, nowUtc) => {
   const hasEnded = event.endTimeAtTimezone._i / 1000 < nowUtc;
   const hasStarted = event.startTimeAtTimezone._i / 1000 < nowUtc;
-
   return hasStarted && !hasEnded;
 };
 
@@ -118,17 +117,15 @@ export const getEventsByDayAndHour = (events, summit) => {
 };
 
 export const getCurrentHourFromEvents = (events, summit, nowUtc) => {
+
   const hours = getEventsByDayAndHour(events, summit)
     .map((event) => event.hours)
     .flat();
 
-  return hours.find((hour, index, hours) => {
-    const endTimeOfLastEvent =
-      hour.events[hour.events.length - 1].endTimeAtTimezone._i / 1000;
-
-    const lastItem = index === hours.length - 1;
-    const endTime = lastItem ? endTimeOfLastEvent : hours[index + 1].hour;
-
-    return fallsWithinTheTimeBlock(hour.hour, endTime, nowUtc);
-  });
+  let currentHour = null;
+  hours.forEach(h => {
+      if(h.hour <= nowUtc)
+          currentHour = h;
+  })
+  return currentHour;
 };

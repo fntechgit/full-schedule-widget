@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   resolve: {
@@ -81,4 +82,5 @@ module.exports = {
       },
     ],
   },
+  externals: [nodeExternals()]
 };
