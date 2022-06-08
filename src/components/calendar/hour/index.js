@@ -4,6 +4,8 @@ import Event from '../event';
 
 import styles from './index.module.scss';
 
+const JustStartedSkew = 5 * 60;
+
 const Hour = ({
   hour,
   hourLabel,
@@ -13,12 +15,13 @@ const Hour = ({
   onEventClick,
 }) => {
   return (
-    <div id={currentHour === hour && styles.liveNow} className={styles.wrapper}>
+    <div id={currentHour === hour && ((currentHour + JustStartedSkew) >= nowUtc) ? styles.liveNow : hourLabel} className={styles.wrapper}>
       <div className={styles.timeWrapper}>
         <div className={styles.time}>{hourLabel}</div>
-        {currentHour === hour && (
-          <p className={styles.justStartedText}>JUST STARTED</p>
-        )}
+        {
+            currentHour === hour && ((currentHour + JustStartedSkew) >= nowUtc)  &&
+            <p className={styles.justStartedText}>JUST STARTED</p>
+        }
       </div>
 
       <div className={styles.eventsWrapper}>

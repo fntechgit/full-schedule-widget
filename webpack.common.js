@@ -1,4 +1,5 @@
-const MiniCssExtractPlugin      = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
     node: {fs: 'empty'},
