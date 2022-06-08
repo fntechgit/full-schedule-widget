@@ -1,6 +1,6 @@
 {
     "name": "full-schedule-widget",
-    "version": "2.0.7",
+    "version": "2.0.8",
     "description": "Full Schedule Widget",
     "main": "index.js",
     "scripts": {
@@ -146,7 +146,7 @@
             "node",
             "mjs"
         ],
-        "moduleNameMapper":{
+        "moduleNameMapper": {
             "\\.(css|less|sass|scss)$": "<rootDir>/src/__mocks__/styleMock.js",
             "\\.(gif|ttf|eot|svg)$": "<rootDir>/src/__mocks__/fileMock.js"
         }
