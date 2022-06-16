@@ -1,5 +1,4 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   resolve: {
@@ -81,6 +80,5 @@ module.exports = {
         use: 'file-loader?name=images/[name].[ext]',
       },
     ],
-  },
-  externals: [nodeExternals()]
+  }
 };
