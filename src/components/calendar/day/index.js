@@ -17,22 +17,24 @@ const Day = ({ settings, dateString, dateStringDay, hours, onEventClick }) => {
       <div>
         {hours.map((hour, index, hours) =>
           hour.hour === currentHour ? (
-            <Element name='currentHour'>
+            <React.Fragment key={`cal-hr-${hour.hour}`}>
+              <Element name='currentHour'>
+                <Hour
+                  {...hour}
+                  currentHour={currentHour}
+                  nowUtc={nowUtc}
+                  onEventClick={onEventClick}
+                />
+              </Element>
+            </React.Fragment>
+          ) : (
+            <React.Fragment key={`cal-hr-${hour.hour}`}>
               <Hour
                 {...hour}
-                currentHour={currentHour}
                 nowUtc={nowUtc}
                 onEventClick={onEventClick}
-                key={`cal-hr-${hour.hour}`}
               />
-            </Element>
-          ) : (
-            <Hour
-              {...hour}
-              nowUtc={nowUtc}
-              onEventClick={onEventClick}
-              key={`cal-hr-${hour.hour}`}
-            />
+            </React.Fragment>
           )
         )}
       </div>
