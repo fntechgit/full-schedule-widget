@@ -11,7 +11,7 @@
  * limitations under the License.
  **/
 
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import CircleButton from 'openstack-uicore-foundation/lib/components/circle-button';
 import RawHTML from 'openstack-uicore-foundation/lib/components/raw-html';
 import EventCountdown from "../countdown";
@@ -36,13 +36,20 @@ const EventInfo = ({
     loggedUser,
     onEmail,
     onChat,
-    showSendEmail
+    showSendEmail,
+    getPopUpHeight
 }) => {
     if (!event) return null;
 
     const eventDate = event.startTimeAtTimezone.format('ddd, MMMM D');
     const eventStartTime = event.startTimeAtTimezone.format('h:mma');
     const eventEndTime = event.endTimeAtTimezone.format('h:mma');
+
+    const popupRef = useRef(null);
+
+    useEffect(() => {
+        getPopUpHeight(popupRef.current.clientHeight)
+    }, [])
 
     const getTitleTag = () => {
         const handleClick = ev => {
@@ -84,7 +91,7 @@ const EventInfo = ({
 
 
     return (
-        <div className={styles.wrapper} id="event-info-popup" style={{ top: position[0], left: position[1] }}>
+        <div className={styles.wrapper} id="event-info-popup" ref={popupRef} style={{ top: position[0], left: position[1] }}>
             <ReactTooltip />
 
             <div className={styles.header}>

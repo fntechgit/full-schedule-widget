@@ -49,23 +49,22 @@ const Calendar = ({
   const filteredGroupedEvents = groupedEvents.filter((d) => d.hours.length);
 
   const onEventClick = (ev, event) => {
-    const rect = ev.target.getBoundingClientRect();
     const scroll = window?.scrollY || 0;
 
-    // Getting the position relative to the viewport, if it's higher than certain values, it substract an amount
-    // to keep the event info popup inside the viewport.
-    const top =
-      rect.top < 150
-        ? -250
-        : rect.top > 750
-        ? rect.top - 850
-        : rect.top > 400
-        ? rect.top - 550
-        : rect.top - 300;
-
-    setInfoPos([top + scroll, ev.clientX + 30]);
+    setInfoPos([ev.clientY + scroll, ev.clientX + 30]);
     setEventDetails(event);
   };
+
+  const adjustPopupPosition = (popUpHeight) => {
+    const scroll = window?.scrollY || 0;
+    const top = infoPos[0] - scroll;
+
+    // if the current popup is outside of the viewport, changes the position
+    // adding 75 pixels as margin
+    if (top + popUpHeight + 75 > window.innerHeight) {
+      setInfoPos([top - popUpHeight + scroll, infoPos[1]])
+    }
+  }
 
   const onSendEmail = (email) => {
     if (window && typeof window !== 'undefined') {
@@ -105,6 +104,7 @@ const Calendar = ({
         position={infoPos}
         event={eventDetails}
         {...eventInfoProps}
+        getPopUpHeight={adjustPopupPosition}
         onClose={() => setEventDetails(null)}
       />
     </div>
