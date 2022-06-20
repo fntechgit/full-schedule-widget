@@ -116,10 +116,6 @@ const EventInfo = ({
                     </div>
                     <div className={styles.description}>
                         <RawHTML>{event.description}</RawHTML>
-                        <RawHTML>{event.description}</RawHTML>
-                        <RawHTML>{event.description}</RawHTML>
-                        <RawHTML>{event.description}</RawHTML>
-                        <RawHTML>{event.description}</RawHTML>
                     </div>
                     {event.speakers?.length > 0 &&
                         <div className={styles.speakersWrapper}>
