@@ -16,6 +16,8 @@ import { epochToMoment } from 'openstack-uicore-foundation/lib/utils/methods';
 import FragmentParser from 'openstack-uicore-foundation/lib/utils/fragment-parser';
 import moment from 'moment-timezone';
 
+const MEDIUM_DEVICE_SCREEN_WIDTH = 768;
+
 const fragmentParser = new FragmentParser();
 
 export const useIsMobileScreen = () => {
@@ -25,7 +27,7 @@ export const useIsMobileScreen = () => {
         window.addEventListener('resize', handleWindowSizeChange);
         return () => window.removeEventListener('resize', handleWindowSizeChange);
     }, []);
-    return (width < 768);
+    return (width < MEDIUM_DEVICE_SCREEN_WIDTH);
 };
 
 export const isLive = (event, nowUtc) => {
