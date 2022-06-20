@@ -62,8 +62,12 @@ const Calendar = ({
     // if the current popup is outside of the viewport, changes the position
     // adding 75 pixels as margin
     if (top + popUpHeight + 75 > window.innerHeight) {
-      setInfoPos([top - popUpHeight + scroll, infoPos[1]])
-    }
+      if(top - popUpHeight < 0 ) {
+        setInfoPos([top - (popUpHeight/2) + scroll, infoPos[1]])
+      } else {
+        setInfoPos([top - popUpHeight + scroll, infoPos[1]])
+      }
+    }    
   }
 
   const onSendEmail = (email) => {
