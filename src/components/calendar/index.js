@@ -63,7 +63,7 @@ const Calendar = ({
     // adding 75 pixels as margin
     if (top + popUpHeight + 75 > window.innerHeight) {
       if(top - popUpHeight < 0 ) {
-        setInfoPos([top - (popUpHeight/2) + scroll, infoPos[1]])
+        setInfoPos([top - (popUpHeight/4) + scroll, infoPos[1]])
       } else {
         setInfoPos([top - popUpHeight + scroll, infoPos[1]])
       }
