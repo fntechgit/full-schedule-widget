@@ -11,11 +11,22 @@
  * limitations under the License.
  **/
 
+import { useEffect, useState } from 'react';
 import { epochToMoment } from 'openstack-uicore-foundation/lib/utils/methods';
 import FragmentParser from 'openstack-uicore-foundation/lib/utils/fragment-parser';
 import moment from 'moment-timezone';
 
 const fragmentParser = new FragmentParser();
+
+export const useIsMobileScreen = () => {
+    const [width, setWidth] = useState(window?.innerWidth);
+    const handleWindowSizeChange = () => setWidth(window?.innerWidth);
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange);
+        return () => window.removeEventListener('resize', handleWindowSizeChange);
+    }, []);
+    return (width < 768);
+};
 
 export const isLive = (event, nowUtc) => {
   const hasEnded = event.endTimeAtTimezone._i / 1000 < nowUtc;
