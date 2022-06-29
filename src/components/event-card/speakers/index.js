@@ -19,13 +19,12 @@ import SpeakerInfo from "../../speaker-info";
 import styles from './index.module.scss'
 import styles2 from '../../../styles/general.module.scss';
 
-const Speakers = ({event, withPic, onChat, onEmail, className, showSendEmail}) => {
+const Speakers = ({event, withPic, onChat, onEmail, className, showSendEmail, closeTooltip}) => {
 
     // we need all this code to hide tooltip when you scroll page while mouse is over tooptip bug
     useEffect(() => {
         const onScroll = e => {
-            const tooltips = document.getElementsByClassName(tooltip);
-            Array.from(tooltips).forEach(tp => tp.classList.remove('show'));
+            closeTooltip()
         };
         window.addEventListener("scroll", onScroll);
 
@@ -104,6 +103,7 @@ Speakers.propTypes = {
     withPic: PropTypes.bool,
     onChat: PropTypes.func.isRequired,
     onEmail: PropTypes.func.isRequired,
+    closeTooltip: PropTypes.func.isRequired,
     className: PropTypes.string
 };
 
