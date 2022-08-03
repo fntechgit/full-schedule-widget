@@ -127,6 +127,7 @@ const EventInfo = ({
                                 onChat={onChat}
                                 className={styles.speakers}
                                 showSendEmail={showSendEmail}
+                                closeTooltip={onClose}
                             />
                         </div>
                     }
