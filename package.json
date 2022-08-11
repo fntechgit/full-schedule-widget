@@ -1,6 +1,6 @@
 {
     "name": "full-schedule-widget",
-    "version": "2.0.10",
+    "version": "2.0.11",
     "description": "Full Schedule Widget",
     "main": "index.js",
     "scripts": {
