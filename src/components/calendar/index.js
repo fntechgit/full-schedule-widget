@@ -46,8 +46,8 @@ const Calendar = ({
     };
   }, []);
 
-  const [bodyScrollY, setBodyScrollY] = useState(null);
-  const [bodyStyleCSS, setBodyStyleCSS] = useState(null);
+  // const [bodyScrollY, setBodyScrollY] = useState(null);
+  // const [bodyStyleCSS, setBodyStyleCSS] = useState(null);
   const [eventDetails, setEventDetails] = useState(null);
   const [infoPos, setInfoPos] = useState([0, 0]);
   const groupedEvents = getEventsByDayAndHour(events, summit);
@@ -59,23 +59,25 @@ const Calendar = ({
     setInfoPos([ev.clientY + scroll, ev.clientX + 30]);
     setEventDetails(event);
     // on mobile need to prevent page scrolling when popup open
-    if (isMobile) {
-      // store current body scroll value
-      setBodyScrollY(scroll);
-      const style = { position: 'fixed', overflow: 'hidden', height: '100%', width: '100%', top: `-${scroll}px`};
-      const styleCss = Object.entries(style).map(([k, v]) => `${k}: ${v}`).join(';');
-      setBodyStyleCSS(styleCss);
-    }
+    // commenting out, this breaks event info popup on safari mobile
+    // https://tipit.avaza.com/project/view#!tab=task-pane&groupby=MyTaskProject&view=vertical&task=3016013&fileview=grid
+    // if (isMobile) {
+    //   // store current body scroll value
+    //   setBodyScrollY(scroll);
+    //   const style = { position: 'fixed', overflow: 'hidden', height: '100%', width: '100%', top: `-${scroll}px`};
+    //   const styleCss = Object.entries(style).map(([k, v]) => `${k}: ${v}`).join(';');
+    //   setBodyStyleCSS(styleCss);
+    // }
   };
 
   const onEventInfoClose = () => {
-    if (isMobile) {
-      setBodyStyleCSS(null);
-      // scroll behavior value should be 'instant'
-      // there is a current iOS Safari bug causing animation to brake
-      // scrolling with default animation
-      window.scrollTo({ top: bodyScrollY });
-    }
+    // if (isMobile) {
+    //   setBodyStyleCSS(null);
+    //   // scroll behavior value should be 'instant'
+    //   // there is a current iOS Safari bug causing animation to brake
+    //   // scrolling with default animation
+    //   window.scrollTo({ top: bodyScrollY });
+    // }
     setEventDetails(null);
   };
 
@@ -136,7 +138,7 @@ const Calendar = ({
         getPopUpHeight={adjustPopupPosition}
         onClose={() => onEventInfoClose()}
       />
-      { bodyStyleCSS && <style dangerouslySetInnerHTML={{ __html: `body { ${bodyStyleCSS} }` }} /> }
+      { /* bodyStyleCSS && <style dangerouslySetInnerHTML={{ __html: `body { ${bodyStyleCSS} }` }} /> */}
     </div>
   );
 };
