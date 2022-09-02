@@ -113,6 +113,7 @@ class Schedule extends React.Component {
         <AjaxLoader show={widgetLoading} size={60} relative />
         <div className={styles.header}>
           <div className={`${styles.title} widget-title`}>{settings.title}</div>
+          {settings.subtitle && <div className={`${styles.subtitle} widget-subtitle`}>{settings.subtitle}</div>}
           <ButtonBar
             currentHour={settings.currentHour}
             view={settings.view}
@@ -122,6 +123,7 @@ class Schedule extends React.Component {
             onChangeTimezone={changeTimezone}
             onSync={() => this.toggleSyncModal(true)}
             onShare={() => this.toggleShareModal(true)}
+            showSync={settings.showSync}
           />
         </div>
         <div className={styles.innerWrapper}>

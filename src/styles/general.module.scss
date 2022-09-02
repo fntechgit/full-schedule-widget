@@ -26,6 +26,17 @@
 
       @extend %title-big;
     }
+
+    .subtitle * {
+      color: var(--color_text_dark);
+      white-space: nowrap;
+
+      @media(max-width: 768px) {
+        margin-bottom: 10px;
+      }
+
+      @extend %text-small;
+    }
   }
 
   .searchWrapper {

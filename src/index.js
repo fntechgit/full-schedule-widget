@@ -31,6 +31,7 @@ const scheduleProps = {
   timezone: 'show',
   now: null,
   title: 'Custom Schedule',
+  subtitle: <a href="google.com">my sched</a>,
   withThumbs: false,
   defaultImage:
     'https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg',

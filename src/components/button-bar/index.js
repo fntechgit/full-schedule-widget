@@ -13,6 +13,7 @@ const ButtonBar = ({
   onChangeTimezone,
   onSync,
   onShare,
+  showSync
 }) => {
   const isLocalTZ = timezone === 'local';
   const timezoneLabel = isLocalTZ ? 'Your Local Timezone' : summitTimezoneLabel;
@@ -48,11 +49,12 @@ const ButtonBar = ({
 
       <div className={styles.buttonGroup}>
         <div className={styles.firstGroup}>
-          <Button onClick={onSync} className={`${styles.button} ${styles.cal}`}>
-            <i className='fa fa-refresh' aria-hidden='true' />
-            Calendar Sync
-          </Button>
-
+          {showSync &&
+            <Button onClick={onSync} className={`${styles.button} ${styles.cal}`}>
+              <i className='fa fa-refresh' aria-hidden='true' />
+              Calendar Sync
+            </Button>
+          }
           <Button
             onClick={onShare}
             className={`${styles.button} ${styles.share}`}
