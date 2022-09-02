@@ -34,6 +34,7 @@ import {
 const DEFAULT_STATE = {
   settings: {
     title: 'Schedule',
+    subtitle: null,
     colorSource: 'track',
     defaultImage: '',
     nowUtc: null,
@@ -47,6 +48,7 @@ const DEFAULT_STATE = {
     needsLogin: null,
     triggerAction: null,
     showSendEmail: false,
+    showSync: false,
     modalSyncTitle: 'Calendar Sync',
     modalSyncText:
       'Use this link to add to your personal calendar and keep the items you added to your schedule in sync',

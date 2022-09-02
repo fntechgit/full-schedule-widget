@@ -19,6 +19,8 @@ Full version React component for the show schedule
    ** needsLogin(pendingAction) = method called when schedule needs user to login - for example on "Add to Schedule".
    
    title            = widget title, defaults to "Schedule"
+
+   subtitle         = child component placed beneath the widget title, takes a component or html element. default null
    
    view             = calendar or list, defaults to calendar
 
@@ -33,6 +35,12 @@ Full version React component for the show schedule
    showSendEmail    = show/hide button to email speaker
    
    triggerAction    = method that will take an ACTION and a payload as params and will return a promise.
+
+   showSync         = flag to show or hide sync button, default to false
+
+   modalSyncTitle   = title copy for modal sync functionality
+
+   modalSyncText    = body copy for modal sync functionality
    
 
 ## PUBLISH TO NPM:
