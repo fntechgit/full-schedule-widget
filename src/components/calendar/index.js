@@ -30,6 +30,13 @@ const Calendar = ({
   loggedUser,
 }) => {
   const isMobile = useIsMobileScreen();
+  // const [bodyScrollY, setBodyScrollY] = useState(null);
+  // const [bodyStyleCSS, setBodyStyleCSS] = useState(null);
+  const [eventDetails, setEventDetails] = useState(null);
+  const [infoPos, setInfoPos] = useState([0, 0]);
+  const groupedEvents = getEventsByDayAndHour(events, summit);
+  const filteredGroupedEvents = groupedEvents.filter((d) => d.hours.length);
+
   useEffect(() => {
     const closeEventInfo = (ev) => {
       if (!isMobile) {    
@@ -46,12 +53,15 @@ const Calendar = ({
     };
   }, []);
 
-  // const [bodyScrollY, setBodyScrollY] = useState(null);
-  // const [bodyStyleCSS, setBodyStyleCSS] = useState(null);
-  const [eventDetails, setEventDetails] = useState(null);
-  const [infoPos, setInfoPos] = useState([0, 0]);
-  const groupedEvents = getEventsByDayAndHour(events, summit);
-  const filteredGroupedEvents = groupedEvents.filter((d) => d.hours.length);
+  // close event detail info if event removed
+  useEffect(() => {
+    if (eventDetails) {
+      const scheduleHasEvent = events.find(ev => ev.id === eventDetails.id);
+      if (!scheduleHasEvent) {
+        setEventDetails(null);
+      }
+    }
+  }, [events?.length])
 
   const onEventClick = (ev, event) => {
     const scroll = window?.scrollY || 0;

@@ -25,7 +25,7 @@ const scheduleProps = {
   events: EventsData,
   summit: SummitData.summit,
   marketingSettings: marketingSettings.colors,
-  userProfile: null,
+  userProfile: {schedule_summit_events: [{ id: 3243 }]},
   colorSource: 'track',
   view: 'calendar',
   timezone: 'show',
