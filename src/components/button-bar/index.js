@@ -37,14 +37,15 @@ const ButtonBar = ({
         <span id='timezone'>{timezoneLabel}</span>
       </Button>
 
+      {currentHour &&
       <Button
         className={`${styles.button} ${styles.liveNowBtn}`}
-        disabled={!currentHour}
         onClick={() => scroller.scrollTo('currentHour')}
       >
         <i className='fa fa-share' aria-hidden='true' />
         Jump To Live
       </Button>
+      }
 
       <div className={styles.buttonGroup}>
         <div className={styles.firstGroup}>

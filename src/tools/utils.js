@@ -123,9 +123,20 @@ export const getCurrentHourFromEvents = (events, summit, nowUtc) => {
     .flat();
 
   let currentHour = null;
-  hours.forEach(h => {
-      if(h.hour <= nowUtc)
-          currentHour = h;
-  })
+
+  // find first hour that follows nowUtc
+  const nextHourIdx = hours.findIndex(h => h.hour >= nowUtc);
+
+  if (nextHourIdx > 0) {
+    currentHour = hours[nextHourIdx - 1];
+  } else {
+    // check if last hour is still on
+    const lastHour = hours[hours.length - 1];
+    const ongoingEvent = lastHour.events.find(ev => ev.start_date < nowUtc && ev.end_date > nowUtc);
+    if (ongoingEvent) {
+      currentHour = lastHour;
+    }
+  }
+
   return currentHour;
 };
