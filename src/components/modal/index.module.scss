@@ -1,64 +1,102 @@
 @import "src/styles/colors";
 @import "src/styles/global-classes";
 
+.backdrop {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: rgba(0,0,0,.3);
+}
 
 .modal {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--color_text_dark);
-
-  :global(.modal-content) {
+  z-index: 300;
+  .modalContent {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
+    @media (max-width: 690px) {
+      width: 90%;
+    }
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: .3rem;
+    outline: 0;
     padding: 9px; // 15 + 9 = 24
-
-    .text {
-      @extend %text-med;
-    }
-
-    .linkWrapper {
-      margin-top: 20px;
-
-      .link {
-        color: #1daaa2;
-        word-break: break-word;
-      }
-    }
-
-    :global(.modal-header) {
-      border: none;
-
-      :global(.modal-title) {
-
+    z-index: 301;
+    .modalHeader {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1rem;
+      border-top-left-radius: calc(.3rem - 1px);
+      border-top-right-radius: calc(.3rem - 1px);
+      h4 {
         @extend %title-med;
       }
-
-      :global(.close) {
-        color: var(--color_text_dark);
-        opacity: 1;
+    }
+    .modalBody {
+      position: relative;
+      flex: 1 1 auto;
+      padding: 1rem;
+      @extend %text-med;
+      .linkWrapper {
+        margin-top: 20px;
+        .link {
+          color: #1daaa2;
+          word-break: break-word;
+        }
       }
     }
-
-    :global(.modal-footer) {
-      border: none;
-      margin-top: 20px;
-
+    .modalFooter {
+      display: flex;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: flex-end;
+      @media (max-width: 576px) {
+        justify-content: center;
+      }
+      padding: .75rem;
+      border-bottom-right-radius: calc(.3rem - 1px);
+      border-bottom-left-radius: calc(.3rem - 1px);
       button {
         border: none;
         color: white;
         padding: 10px 15px;
         border-radius: 4px;
-
         &.copy {
           width: 100px;
-
           @extend %button-small-primary;
         }
 
         &.dismiss {
           margin-right: 10px;
-
           @extend %button-small-secondary;
         }
       }
     }
-
-
   }
+}
+
+.fade {
+  transition: transform .3s ease-out;
+  transform: translate(0,-50px);
 }
