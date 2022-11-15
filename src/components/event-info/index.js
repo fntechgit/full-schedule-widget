@@ -23,9 +23,8 @@ import ReactTooltip from "react-tooltip";
 import style2 from "../../styles/general.module.scss";
 const {circleButton, link } = style2;
 
-const EventInfo = ({
+const EventInfo = React.forwardRef(({
     event,
-    position,
     summit,
     nowUtc,
     onEventClick,
@@ -36,20 +35,13 @@ const EventInfo = ({
     loggedUser,
     onEmail,
     onChat,
-    showSendEmail,
-    getPopUpHeight
-}) => {
+    showSendEmail
+}, ref) => {
     if (!event) return null;
 
     const eventDate = event.startTimeAtTimezone.format('ddd, MMMM D');
     const eventStartTime = event.startTimeAtTimezone.format('h:mma');
     const eventEndTime = event.endTimeAtTimezone.format('h:mma');
-
-    const popupRef = useRef(null);
-
-    useEffect(() => {
-        getPopUpHeight(popupRef.current.clientHeight)
-    }, [])
 
     const getTitleTag = () => {
         const handleClick = ev => {
@@ -91,10 +83,13 @@ const EventInfo = ({
 
 
     return (
-        <div className={styles.outerWrapper} id="event-info-popup" ref={popupRef} style={{ top: position[0], left: position[1] }}>
+        <div
+            ref={ref}
+            className={styles.outerWrapper}
+            id="event-info-popup"
+        >
             <div className={styles.innerWrapper}>
                 <ReactTooltip />
-
                 <div className={styles.header}>
                     <div className={styles.countdown}>
                         <EventCountdown event={event} nowUtc={nowUtc} />
@@ -132,7 +127,6 @@ const EventInfo = ({
                         </div>
                     }
                 </div>
-
                 <div className={`${styles.circleButton} ${circleButton}`} data-tip={event.isScheduled ? 'added to schedule' : 'Add to my schedule'}>
                     <CircleButton
                         event={event}
@@ -146,7 +140,6 @@ const EventInfo = ({
             </div>
         </div>
     );
-
-};
+});
 
 export default EventInfo;
