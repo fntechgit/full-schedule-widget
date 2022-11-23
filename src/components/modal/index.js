@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { ModalUnstyled } from '@mui/base';
-import { Fade } from '../../tools/animations';
+import { Appear } from '../../tools/animations';
 
 import styles from './index.module.scss';
 
@@ -21,26 +21,26 @@ export default ({ show, onHide, title, text, link }) => {
     return (
         <ModalUnstyled
             open={show}
+            disableAutoFocus
+            disablePortal
             className={styles.modal}
             slots={{ backdrop: renderBackdrop }}
         >
-            <Fade in={show}>
-                <div className={styles.modalContent}>
-                    <div className={styles.modalHeader}>
-                        <h4>{title}</h4>
-                    </div>
-                    <div className={styles.modalBody}>
-                        <div className={styles.text} dangerouslySetInnerHTML={{ __html: text }}></div>
-                        <div className={styles.linkWrapper}>
-                            <span className={styles.link}>{link}</span>
-                        </div>
-                    </div>
-                    <div className={styles.modalFooter}>
-                        <button className={styles.dismiss} onClick={onHide}>Dismiss</button>
-                        <button className={styles.copy} onClick={onCopy}>{copyText}</button>
+            <Appear in={show} className={styles.modalContent}>
+                <div className={styles.modalHeader}>
+                    <h4>{title}</h4>
+                </div>
+                <div className={styles.modalBody}>
+                    <div className={styles.text} dangerouslySetInnerHTML={{ __html: text }}></div>
+                    <div className={styles.linkWrapper}>
+                        <span className={styles.link}>{link}</span>
                     </div>
                 </div>
-            </Fade>
+                <div className={styles.modalFooter}>
+                    <button className={styles.dismiss} onClick={onHide}>Dismiss</button>
+                    <button className={styles.copy} onClick={onCopy}>{copyText}</button>
+                </div>
+            </Appear>
         </ModalUnstyled>
     );
 }

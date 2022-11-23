@@ -17,8 +17,12 @@ import RawHTML from 'openstack-uicore-foundation/lib/components/raw-html';
 
 import styles from './index.module.scss';
 
-const SpeakerInfo = ({speaker, onChat, onEmail, showSendEmail}) => {
-
+const SpeakerInfo = ({
+    speaker,
+    onChat,
+    onEmail,
+    showSendEmail
+}) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
@@ -73,7 +77,6 @@ const SpeakerInfo = ({speaker, onChat, onEmail, showSendEmail}) => {
             </div>
         </div>
     );
-
 };
 
 SpeakerInfo.propTypes = {

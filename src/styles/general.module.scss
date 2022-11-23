@@ -132,32 +132,6 @@
   }
 }
 
-.tooltip {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  padding: 12px !important;
-
-  &:global(.__react_component_tooltip) {
-    &:global(.show) {
-      opacity: 1;
-    }
-  }
-
-  &.noTip {
-    &:after {
-      display: none;
-    }
-  }
-
-  @media(max-width: 768px) {
-    top: 73px !important;
-    left: 0 !important;
-    margin: 0 !important;
-    width: 100%;
-    max-height: 50%;
-    overflow: auto;
-  }
-}
-
 .circleButton {
   button {
     min-width: 35px;
@@ -188,10 +162,6 @@
   text-align: center;
 }
 
-.eventInfoLayer {
-  z-index: 2;
-}
-
 @media(max-width: 768px) {
   .outerWrapper {
     .viewOptions {
@@ -211,4 +181,6 @@
   }
 }
 
-@media(min-width: 1440px) {}
+.eventInfoLayer {
+  z-index: 2;
+}

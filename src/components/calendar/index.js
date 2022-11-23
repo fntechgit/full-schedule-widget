@@ -14,9 +14,11 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Fade } from '../../tools/animations';
 import { useLayer, useMousePositionAsTrigger } from 'react-laag';
 import EventInfo from '../event-info';
 import Day from './day';
+
 import { addEventToSchedule, removeEventFromSchedule } from '../../actions';
 import { getEventsByDayAndHour } from '../../tools/utils';
 
@@ -31,6 +33,8 @@ const Calendar = ({
   loggedUser,
 }) => {
   const [eventDetails, setEventDetails] = useState(null);
+  const [enableLayer, setEnableLayer] = useState(false);
+  const [showEventInfo, setShowEventInfo] = useState(false);
   const groupedEvents = getEventsByDayAndHour(events, summit);
   const filteredGroupedEvents = groupedEvents.filter((d) => d.hours.length);
 
@@ -46,46 +50,34 @@ const Calendar = ({
     layerProps,
     renderLayer
   } = useLayer({
-    isOpen: hasMousePosition,
     auto: true,
-    onOutsideClick: resetMousePosition,
+    isOpen: enableLayer,
+    onOutsideClick: () => onEventInfoClose(),
     trigger
   });
 
   useEffect(() => {
-    const closeEventInfo = (ev) => {
-      if (!isMobile) {    
-        const wrapper = document.getElementById('event-info-popup');
-        if (wrapper && !wrapper.contains(ev.target.parentNode)) {
-          setEventDetails(null);
-        } 
-      }
-    };
-
-    document.addEventListener('mousedown', closeEventInfo);
-    return () => {
-      document.removeEventListener('mousedown', closeEventInfo);
-    };
+    window.addEventListener('scroll', onEventInfoClose);
+    return () => window.removeEventListener('scroll', onEventInfoClose);
   }, []);
 
-  // close event detail info if event removed
   useEffect(() => {
     if (eventDetails) {
       const scheduleHasEvent = events.find(ev => ev.id === eventDetails.id);
-      if (!scheduleHasEvent) {
-        setEventDetails(null);
-      }
+      if (!scheduleHasEvent)
+        onEventInfoClose();
     }
   }, [events?.length])
 
   const onEventClick = (ev, event) => {
     handleMouseEvent(ev);
     setEventDetails(event);
+    setEnableLayer(true);
+    setShowEventInfo(true);
   };
 
   const onEventInfoClose = () => {
-    resetMousePosition();
-    setEventDetails(null);
+    setShowEventInfo(false);
   };
 
   const onSendEmail = (email) => {
@@ -109,12 +101,12 @@ const Calendar = ({
 
   return (
     <div ref={parentRef} className={styles.eventList}>
-      {filteredGroupedEvents.length === 0 && (
+      { filteredGroupedEvents.length === 0 && (
         <div className={styles.noEvents}>
           There are no activities to display.
         </div>
       )}
-      {filteredGroupedEvents.map((date) => (
+      { filteredGroupedEvents.map((date) => (
         <Day
           {...date}
           settings={settings}
@@ -122,16 +114,21 @@ const Calendar = ({
           key={`cal-day-${date.dateString}`}
         />
       ))}
-      { hasMousePosition && renderLayer(
+      { enableLayer && renderLayer(
         <div
           className={styles.eventInfoLayer}
           {...layerProps}
         >
-          <EventInfo
-            event={eventDetails}
-            {...eventInfoProps}
-            onClose={() => onEventInfoClose()}
-          />
+          <Fade
+            in={showEventInfo}
+            onExited={() => setEnableLayer(false)}
+          >
+            <EventInfo
+              event={eventDetails}
+              {...eventInfoProps}
+              onClose={() => onEventInfoClose()}
+            />
+          </Fade>
         </div>
       )}
     </div>

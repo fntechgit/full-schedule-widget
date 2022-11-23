@@ -11,25 +11,104 @@
  * limitations under the License.
  **/
 
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTooltip from "react-tooltip";
-import SpeakerInfo from "../../speaker-info";
+import {
+    useMousePositionAsTrigger,
+    useHover,
+    useLayer,
+    Arrow
+} from "react-laag";
+import {
+  useIsMobileScreen
+} from '../../../tools/utils';
+import SpeakerInfo from '../../speaker-info';
 
 import styles from './index.module.scss'
-import styles2 from '../../../styles/general.module.scss';
 
-const Speakers = ({event, withPic, onChat, onEmail, className, showSendEmail, closeTooltip}) => {
+const SpeakerPopover = ({
+    speaker,
+    onChat,
+    onEmail,
+    showSendEmail
+}) => {
 
-    // we need all this code to hide tooltip when you scroll page while mouse is over tooptip bug
-    useEffect(() => {
-        const onScroll = e => {
-            closeTooltip()
-        };
-        window.addEventListener("scroll", onScroll);
+    const isMobile = useIsMobileScreen();
 
-        return () => window.removeEventListener("scroll", onScroll);
-    })
+    const [
+        isOver,
+        hoverProps,
+        close
+    ] = useHover({
+        hideOnScroll: !isMobile
+    });
+
+    const {
+        triggerProps,
+        layerProps,
+        renderLayer,
+        arrowProps
+    } = useLayer({
+        auto: true,
+        isOpen: isOver
+    });
+
+    return (
+        <div
+            {...triggerProps}
+            {...hoverProps}
+        >
+            <div className={styles.speaker}>
+                <div className={styles.picWrapper}>
+                    <div className={styles.pic} style={{backgroundImage: `url(${speaker.pic})`}} />
+                </div>
+                <div className={styles.nameWrapper}>
+                    <div className={styles.name}>
+                        {speaker.first_name} {speaker.last_name}
+                    </div>
+                    {speaker.title &&
+                    <div className={styles.job}>
+                        <span>{speaker.title}</span>
+                        {speaker.company && <span className={styles.company}> - {speaker.company}</span>}
+                    </div>
+                    }
+                </div>
+            </div>
+            {isOver && renderLayer(
+                <div
+                    className={styles.popover}
+                    {...layerProps}
+                >
+                    <div className={styles.header}>
+                        <button className={styles.closeButton} onClick={close}>
+                            <i aria-label='Close' className="fa fa-times" />
+                        </button>
+                    </div>
+                    <SpeakerInfo
+                        speaker={speaker}
+                        onChat={onChat}
+                        onEmail={onEmail} 
+                        howSendEmail={showSendEmail}
+                    />
+                    <Arrow
+                        borderWidth={1}
+                        borderColor="rgba(0, 0, 0, 0.175)"
+                        {...arrowProps}
+                    />
+                </div>
+            )}
+        </div>
+    );
+}
+
+const Speakers = ({
+    event,
+    withPic,
+    onChat,
+    onEmail,
+    className,
+    showSendEmail
+}) => {
 
     const getHosts = () => {
         let hosts = [];
@@ -42,36 +121,15 @@ const Speakers = ({event, withPic, onChat, onEmail, className, showSendEmail, cl
     };
 
     const getSpeakersWithPic = () => {
-        return getHosts().map((sp, i) => (
-            <React.Fragment key={`ev-${event.id}-speaker-${sp.id}-${i}`}>
-                <div className={styles.speaker} data-tip="" data-for={`speakerInfo-${sp.id}`}>
-                    <div className={styles.picWrapper}>
-                        <div className={styles.pic} style={{backgroundImage: `url(${sp.pic})`}} />
-                    </div>
-                    <div className={styles.nameWrapper}>
-                        <div className={styles.name}>
-                            {sp.first_name} {sp.last_name}
-                        </div>
-                        {sp.title &&
-                        <div className={styles.job}>
-                            <span>{sp.title}</span>
-                            {sp.company && <span className={styles.company}> - {sp.company}</span>}
-                        </div>
-                        }
-                    </div>
-                </div>
-                <ReactTooltip
-                    className={styles2.tooltip}
-                    delayShow={200}
-                    id={`speakerInfo-${sp.id}`}
-                    type='light'
-                    place="right"
-                    clickable={true}
-                >
-                   <SpeakerInfo speaker={sp} onChat={onChat} onEmail={onEmail} showSendEmail={showSendEmail} />
-                </ReactTooltip>
-            </ React.Fragment>
-        ));
+        return getHosts().map((speaker, i) =>
+            <SpeakerPopover
+                key={`ev-${event.id}-speaker-${speaker.id}-${i}`}
+                speaker={speaker}
+                onChat={onChat}
+                onEmail={onEmail} 
+                howSendEmail={showSendEmail}
+            />
+        );
     };
 
     const getSpeakers = () => {
@@ -103,7 +161,6 @@ Speakers.propTypes = {
     withPic: PropTypes.bool,
     onChat: PropTypes.func.isRequired,
     onEmail: PropTypes.func.isRequired,
-    closeTooltip: PropTypes.func.isRequired,
     className: PropTypes.string
 };
 
