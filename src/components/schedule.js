@@ -27,6 +27,7 @@ import {
 } from '../actions';
 import ButtonBar from './button-bar';
 import Modal from './modal';
+import { arrayEquals } from '../tools/utils';
 
 import 'openstack-uicore-foundation/lib/css/components/circle-button.css';
 import styles from '../styles/general.module.scss';
@@ -56,11 +57,8 @@ class Schedule extends React.Component {
     } = prevProps;
     const { events, updateEvents, shareLink, view, updateSettings, timezone } =
       this.props;
-    const prevEventsIds = prevEvents.map((e) => e.id);
-    const eventsIds = events.map((e) => e.id);
-    const eventsChanged =
-      prevEventsIds.length !== eventsIds.length ||
-      !prevEventsIds.every((v, i) => v === eventsIds[i]);
+
+    const eventsChanged = !arrayEquals(prevEvents, events);
 
     if (
       shareLink !== prevShareLink ||
