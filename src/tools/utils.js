@@ -153,3 +153,10 @@ export const getCurrentHourFromEvents = (events, summit, nowUtc) => {
 
   return currentHour;
 };
+
+export const arrayEquals = (a, b) => {
+    return Array.isArray(a) &&
+        Array.isArray(b) &&
+        a.length === b.length &&
+        a.every((val, index) => JSON.stringify(val) === JSON.stringify(b[index]));
+}
