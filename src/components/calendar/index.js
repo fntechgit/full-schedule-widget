@@ -52,7 +52,7 @@ const Calendar = ({
   } = useLayer({
     auto: true,
     isOpen: enableLayer,
-    onOutsideClick: onEventInfoClose,
+    onOutsideClick: () => onEventInfoClose(),
     trigger
   });
 
