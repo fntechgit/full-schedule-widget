@@ -38,6 +38,17 @@ const Calendar = ({
   const groupedEvents = getEventsByDayAndHour(events, summit);
   const filteredGroupedEvents = groupedEvents.filter((d) => d.hours.length);
 
+  const onEventClick = (ev, event) => {
+    handleMouseEvent(ev);
+    setEventDetails(event);
+    setEnableLayer(true);
+    setShowEventInfo(true);
+  };
+
+  const onEventInfoClose = () => {
+    setShowEventInfo(false);
+  };
+
   const {
     hasMousePosition,
     handleMouseEvent,
@@ -52,7 +63,7 @@ const Calendar = ({
   } = useLayer({
     auto: true,
     isOpen: enableLayer,
-    onOutsideClick: () => onEventInfoClose(),
+    onOutsideClick: onEventInfoClose,
     trigger
   });
 
@@ -68,17 +79,6 @@ const Calendar = ({
         onEventInfoClose();
     }
   }, [events?.length])
-
-  const onEventClick = (ev, event) => {
-    handleMouseEvent(ev);
-    setEventDetails(event);
-    setEnableLayer(true);
-    setShowEventInfo(true);
-  };
-
-  const onEventInfoClose = () => {
-    setShowEventInfo(false);
-  };
 
   const onSendEmail = (email) => {
     if (window && typeof window !== 'undefined') {
