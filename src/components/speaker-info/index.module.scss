@@ -1,14 +1,12 @@
 @import "../../styles/colors";
 @import "../../styles/global-classes";
 
-
 .wrapper {
-  max-width: 300px;
   color: #5e5f62;
-  background-color: white;
+  padding: 12px;
 
-  @media(max-width: 768px) {
-    max-width: unset;
+  @media(min-width: 768px) {
+    max-width: 400px;
   }
 
   .header {
@@ -63,7 +61,7 @@
     }
   }
   .description {
-    @extend %text-tiny;
+    @extend %text-small;
   }
   .actionWrapper {
     display: flex;

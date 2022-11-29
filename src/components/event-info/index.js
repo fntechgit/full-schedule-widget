@@ -11,21 +11,22 @@
  * limitations under the License.
  **/
 
-import React, {useEffect, useRef} from 'react';
-import CircleButton from 'openstack-uicore-foundation/lib/components/circle-button';
+import React, { useState } from 'react';
+import { useLayer, useMousePositionAsTrigger } from 'react-laag';
+import EventCountdown from '../countdown';
+import Speakers from '../event-card/speakers';
 import RawHTML from 'openstack-uicore-foundation/lib/components/raw-html';
-import EventCountdown from "../countdown";
-import Speakers from "../event-card/speakers";
-import { getLocation } from "../../tools/utils";
+import CircleButton from 'openstack-uicore-foundation/lib/components/circle-button';
 
+import { getLocation } from '../../tools/utils';
+
+import generalStyles from '../../styles/general.module.scss';
 import styles from './index.module.scss';
-import ReactTooltip from "react-tooltip";
-import style2 from "../../styles/general.module.scss";
-const {circleButton, link } = style2;
 
-const EventInfo = ({
+const { circleButton, link } = generalStyles;
+
+const EventInfo = React.forwardRef(({
     event,
-    position,
     summit,
     nowUtc,
     onEventClick,
@@ -36,20 +37,13 @@ const EventInfo = ({
     loggedUser,
     onEmail,
     onChat,
-    showSendEmail,
-    getPopUpHeight
-}) => {
+    showSendEmail
+}, ref) => {
     if (!event) return null;
 
     const eventDate = event.startTimeAtTimezone.format('ddd, MMMM D');
     const eventStartTime = event.startTimeAtTimezone.format('h:mma');
     const eventEndTime = event.endTimeAtTimezone.format('h:mma');
-
-    const popupRef = useRef(null);
-
-    useEffect(() => {
-        getPopUpHeight(popupRef.current.clientHeight)
-    }, [])
 
     const getTitleTag = () => {
         const handleClick = ev => {
@@ -75,7 +69,7 @@ const EventInfo = ({
         if (loggedUser) {
             addToSchedule(event);
         } else {
-            const pendingAction = { action: 'ADD_EVENT', event}
+            const pendingAction = { action: 'ADD_EVENT', event };
             needsLogin(pendingAction);
         }
     };
@@ -84,17 +78,17 @@ const EventInfo = ({
         if (loggedUser) {
             removeFromSchedule(event);
         } else {
-            const pendingAction = { action: 'REMOVE_EVENT', event}
+            const pendingAction = { action: 'REMOVE_EVENT', event };
             needsLogin(pendingAction);
         }
     };
 
-
     return (
-        <div className={styles.outerWrapper} id="event-info-popup" ref={popupRef} style={{ top: position[0], left: position[1] }}>
+        <div
+            className={styles.outerWrapper}
+            id="event-info-popup"
+        >
             <div className={styles.innerWrapper}>
-                <ReactTooltip />
-
                 <div className={styles.header}>
                     <div className={styles.countdown}>
                         <EventCountdown event={event} nowUtc={nowUtc} />
@@ -127,12 +121,10 @@ const EventInfo = ({
                                 onChat={onChat}
                                 className={styles.speakers}
                                 showSendEmail={showSendEmail}
-                                closeTooltip={onClose}
                             />
                         </div>
                     }
                 </div>
-
                 <div className={`${styles.circleButton} ${circleButton}`} data-tip={event.isScheduled ? 'added to schedule' : 'Add to my schedule'}>
                     <CircleButton
                         event={event}
@@ -146,7 +138,6 @@ const EventInfo = ({
             </div>
         </div>
     );
-
-};
+});
 
 export default EventInfo;

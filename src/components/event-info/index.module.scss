@@ -1,33 +1,24 @@
 @import "src/styles/colors";
 @import "src/styles/global-classes";
 
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
 .outerWrapper {
-  width: 400px;
-  color: #5e5f62;
-  position: absolute;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   padding: 12px;
-  z-index: 2;
+  color: #5e5f62;
   background-color: white;
-  animation-name: fadeIn;
-  animation-duration: 1s;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  @media(min-width: 768px) {
+    width: 440px;
+    max-height: 100vh;
+    max-height: 100dvh;
+  }
   @media(max-width: 768px) {
-    top: 0 !important;
-    left: 0 !important;
-    bottom: 0;
-    right: 0;
-    width: 100dvw;
     position: fixed;
-    height: 100dvh;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    inset: 0;
   }
   .innerWrapper {
-    position: static;
     .header {
       display: flex;
       justify-content: space-between;

@@ -84,5 +84,33 @@
       @extend %text-small;
     }
   }
+}
 
+.popover {
+  background-color: white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  z-index: 50;
+  @media(max-width: 768px) {
+    inset: 0!important;
+    margin: 0!important;
+    overflow: auto;
+  }
+  .header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 12px 0 0;
+    .closeButton {
+      border: 0;
+      padding: 0;
+      font-size: 28px;
+      line-height: 10px;
+      background: transparent;
+      @media(min-width: 768px) {
+        display: none;
+      }
+    }
+    .arrow {
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+  }
 }

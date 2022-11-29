@@ -12,14 +12,17 @@
  **/
 
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Fade } from '../../tools/animations';
+import { useLayer, useMousePositionAsTrigger } from 'react-laag';
+import EventInfo from '../event-info';
 import Day from './day';
+
 import { addEventToSchedule, removeEventFromSchedule } from '../../actions';
+import { getEventsByDayAndHour } from '../../tools/utils';
 
 import styles from '../../styles/general.module.scss';
-import EventInfo from '../event-info';
-import { useIsMobileScreen, getEventsByDayAndHour } from '../../tools/utils';
 
 const Calendar = ({
   events,
@@ -29,83 +32,53 @@ const Calendar = ({
   removeEventFromSchedule,
   loggedUser,
 }) => {
-  const isMobile = useIsMobileScreen();
-  // const [bodyScrollY, setBodyScrollY] = useState(null);
-  // const [bodyStyleCSS, setBodyStyleCSS] = useState(null);
   const [eventDetails, setEventDetails] = useState(null);
-  const [infoPos, setInfoPos] = useState([0, 0]);
+  const [enableLayer, setEnableLayer] = useState(false);
+  const [showEventInfo, setShowEventInfo] = useState(false);
   const groupedEvents = getEventsByDayAndHour(events, summit);
   const filteredGroupedEvents = groupedEvents.filter((d) => d.hours.length);
 
-  useEffect(() => {
-    const closeEventInfo = (ev) => {
-      if (!isMobile) {    
-        const wrapper = document.getElementById('event-info-popup');
-        if (wrapper && !wrapper.contains(ev.target.parentNode)) {
-          setEventDetails(null);
-        } 
-      }
-    };
-
-    document.addEventListener('mousedown', closeEventInfo);
-    return () => {
-      document.removeEventListener('mousedown', closeEventInfo);
-    };
-  }, []);
-
-  // close event detail info if event removed
-  useEffect(() => {
-    if (eventDetails) {
-      const scheduleHasEvent = events.find(ev => ev.id === eventDetails.id);
-      if (!scheduleHasEvent) {
-        setEventDetails(null);
-      }
-    }
-  }, [events?.length])
-
   const onEventClick = (ev, event) => {
-    const scroll = window?.scrollY || 0;
-
-    setInfoPos([ev.clientY + scroll, ev.clientX + 30]);
+    handleMouseEvent(ev);
     setEventDetails(event);
-    // on mobile need to prevent page scrolling when popup open
-    // commenting out, this breaks event info popup on safari mobile
-    // https://tipit.avaza.com/project/view#!tab=task-pane&groupby=MyTaskProject&view=vertical&task=3016013&fileview=grid
-    // if (isMobile) {
-    //   // store current body scroll value
-    //   setBodyScrollY(scroll);
-    //   const style = { position: 'fixed', overflow: 'hidden', height: '100%', width: '100%', top: `-${scroll}px`};
-    //   const styleCss = Object.entries(style).map(([k, v]) => `${k}: ${v}`).join(';');
-    //   setBodyStyleCSS(styleCss);
-    // }
+    setEnableLayer(true);
+    setShowEventInfo(true);
   };
 
   const onEventInfoClose = () => {
-    // if (isMobile) {
-    //   setBodyStyleCSS(null);
-    //   // scroll behavior value should be 'instant'
-    //   // there is a current iOS Safari bug causing animation to brake
-    //   // scrolling with default animation
-    //   window.scrollTo({ top: bodyScrollY });
-    // }
-    setEventDetails(null);
+    setShowEventInfo(false);
   };
 
-  const adjustPopupPosition = (popUpHeight) => {
-    const scroll = window?.scrollY || 0;
-    const top = infoPos[0] - scroll;
+  const {
+    hasMousePosition,
+    handleMouseEvent,
+    resetMousePosition,
+    trigger,
+    parentRef
+  } = useMousePositionAsTrigger();
 
-    // if the current popup is outside of the viewport, changes the position
-    // adding 75 pixels as margin
-    if (top + popUpHeight + 75 > window.innerHeight) {
-      // If the popup is bigger and top position is out of viewport, reduce the top value to a quarter instead of setting top position at bottom of the popup
-      if(top - popUpHeight < 0 ) {
-        setInfoPos([top - (popUpHeight/4) + scroll, infoPos[1]])
-      } else {
-        setInfoPos([top - popUpHeight + scroll, infoPos[1]])
-      }
-    }    
-  }
+  const {
+    layerProps,
+    renderLayer
+  } = useLayer({
+    auto: true,
+    isOpen: enableLayer,
+    onOutsideClick: onEventInfoClose,
+    trigger
+  });
+
+  useEffect(() => {
+    window.addEventListener('scroll', onEventInfoClose);
+    return () => window.removeEventListener('scroll', onEventInfoClose);
+  }, []);
+
+  useEffect(() => {
+    if (eventDetails) {
+      const scheduleHasEvent = events.find(ev => ev.id === eventDetails.id);
+      if (!scheduleHasEvent)
+        onEventInfoClose();
+    }
+  }, [events?.length])
 
   const onSendEmail = (email) => {
     if (window && typeof window !== 'undefined') {
@@ -127,13 +100,13 @@ const Calendar = ({
   };
 
   return (
-    <div className={styles.eventList}>
-      {filteredGroupedEvents.length === 0 && (
+    <div ref={parentRef} className={styles.eventList}>
+      { filteredGroupedEvents.length === 0 && (
         <div className={styles.noEvents}>
           There are no activities to display.
         </div>
       )}
-      {filteredGroupedEvents.map((date) => (
+      { filteredGroupedEvents.map((date) => (
         <Day
           {...date}
           settings={settings}
@@ -141,14 +114,23 @@ const Calendar = ({
           key={`cal-day-${date.dateString}`}
         />
       ))}
-      <EventInfo
-        position={infoPos}
-        event={eventDetails}
-        {...eventInfoProps}
-        getPopUpHeight={adjustPopupPosition}
-        onClose={() => onEventInfoClose()}
-      />
-      { /* bodyStyleCSS && <style dangerouslySetInnerHTML={{ __html: `body { ${bodyStyleCSS} }` }} /> */}
+      { enableLayer && renderLayer(
+        <div
+          className={styles.eventInfoLayer}
+          {...layerProps}
+        >
+          <Fade
+            in={showEventInfo}
+            onExited={() => setEnableLayer(false)}
+          >
+            <EventInfo
+              event={eventDetails}
+              {...eventInfoProps}
+              onClose={() => onEventInfoClose()}
+            />
+          </Fade>
+        </div>
+      )}
     </div>
   );
 };
