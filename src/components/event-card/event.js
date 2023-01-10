@@ -11,85 +11,108 @@
  * limitations under the License.
  **/
 
-import React, { Component } from 'react';
+import React, {
+    useRef,
+    useState,
+    useEffect
+} from 'react';
 import PropTypes from 'prop-types';
 import EventHeader from './header';
 import EventCountdown from "../countdown";
 import CircleButton from "openstack-uicore-foundation/lib/components/circle-button";
 
+import {
+  useIsMobileScreen
+} from '../../tools/utils';
 
 import styles from './event.module.scss'
 import styles2 from "../../styles/general.module.scss";
 
-class Event extends Component {
+const Event = ({
+    event,
+    summit,
+    loggedUser,
+    onAddEvent,
+    onRemoveEvent,
+    settings
+}) => {
+    const ref = useRef(null);
 
-    constructor(props) {
-        super(props);
+    const [showDetailsButton, setShowDetailsButton] = useState(false);
+    const [expanded, setExpanded] = useState(false);
 
-        this.state = {
-            expanded: false,
-            showDetailsButton: false
+    const isMobile = useIsMobileScreen();
+
+    useEffect(() => {
+        const handleTouchOutside = (e) => {
+            if (ref.current && !ref.current.contains(e.target)) {
+                setShowDetailsButton(false);
+            }
+        };
+        document.addEventListener('touchstart', handleTouchOutside, true);
+        return () => {
+            document.removeEventListener('touchstart', handleTouchOutside, true);
+        };
+    }, []);
+
+    const handleEvent = (e) => {
+        switch (e.type) {
+        case 'mouseenter':
+        case 'touchstart':
+            setShowDetailsButton(true);
+            break;
+        case 'mouseleave':
+            setShowDetailsButton(false);
+            break;
+        default:
+            break;
         }
     }
 
-    addToSchedule = (event) => {
-        const {loggedUser, settings} = this.props;
-
+    const addToSchedule = (event) => {
         if (loggedUser) {
-            this.props.onAddEvent(event);
+            onAddEvent(event);
         } else {
             const pendingAction = { action: 'ADD_EVENT', event}
             settings.needsLogin(pendingAction);
         }
     };
 
-    removeFromSchedule = (event) => {
-        const {loggedUser, settings} = this.props;
-
+    const removeFromSchedule = (event) => {
         if (loggedUser) {
-            this.props.onRemoveEvent(event);
+            onRemoveEvent(event);
         } else {
             const pendingAction = { action: 'REMOVE_EVENT', event}
             settings.needsLogin(pendingAction);
         }
     };
 
-    sendEmail = (email) => {
+    const sendEmail = (email) => {
         if (window && typeof window !== 'undefined') {
             window.open(`mailto: ${email}`, 'emailWindow');
         }
     };
 
-    goToEvent = (event) => {
-        const {settings} = this.props;
-
+    const goToEvent = (event) => {
         if (settings.onEventClick) {
             settings.onEventClick(event);
         }
     };
 
-    render() {
-        const { event, summit, settings } = this.props;
-        const { expanded, showDetailsButton } = this.state;
-        return (
+    return (
+        <div
+            className={styles.wrapper}
+            id={`event-${event.id}`}
+            style={{ borderLeft: `6px solid ${event.eventColor}` }}
+        >
             <div
-                className={`${styles.wrapper} ${expanded && styles.expanded} event-wrapper`}
-                id={`event-${event.id}`}
-                style={{ borderLeft: `6px solid ${event.eventColor}` }}
-                onMouseEnter={() => this.setState({showDetailsButton: true})}
-                onMouseLeave={() => this.setState({showDetailsButton: false})}
+                className={`${styles.eventCard} ${expanded ? styles.expanded : ''}`}
+                ref={ref}
+                onMouseEnter={handleEvent}
+                onMouseLeave={handleEvent}
+                onTouchStart={handleEvent}
             >
                 <EventCountdown event={event} nowUtc={settings.nowUtc} className={styles.countdown} />
-                <div className={`${styles.circleButton} ${styles2.circleButton}`} data-tip={event.isScheduled ? 'added to schedule' : 'Add to my schedule'}>
-                    <CircleButton
-                        event={event}
-                        isScheduled={event.isScheduled}
-                        nowUtc={settings.nowUtc}
-                        addToSchedule={this.addToSchedule}
-                        removeFromSchedule={this.removeFromSchedule}
-                        enterClick={this.goToEvent}
-                    />
-                </div>
                 <EventHeader
                     event={event}
                     summit={summit}
@@ -99,17 +122,34 @@ class Event extends Component {
                     defaultImage={settings.defaultImage}
                     onEventClick={settings.onEventClick}
                     showSendEmail={settings.showSendEmail}
-                    sendEmail={this.sendEmail}
+                    sendEmail={sendEmail}
                     startChat={settings.onStartChat}
                 />
-                <div className={`${styles.detailsButton} ${showDetailsButton && styles.show}`}>
-                    <button onClick={() => {this.setState({expanded: !expanded})}} data-tip="More info" className="open-info-btn">
+                { showDetailsButton && 
+                <div className={styles.detailsButton}>
+                    <button onClick={() => setExpanded(!expanded)} data-tip="More info">
                         <i className={`fa ${expanded ? 'fa-chevron-up' : 'fa-chevron-down'}`} />
                     </button>
                 </div>
+                }
             </div>
-        )
-    }
+            <div
+                className={`${styles.circleButton} ${styles2.circleButton}`}
+                data-tip={event.isScheduled ? 'added to schedule' : 'Add to my schedule'}
+                onMouseEnter={!isMobile ? handleEvent : () => {}}
+                onMouseLeave={!isMobile ? handleEvent : () => {}}
+            >
+                <CircleButton
+                    event={event}
+                    isScheduled={event.isScheduled}
+                    nowUtc={settings.nowUtc}
+                    addToSchedule={addToSchedule}
+                    removeFromSchedule={removeFromSchedule}
+                    enterClick={goToEvent}
+                />
+            </div>
+        </div>
+    );
 }
 
 Event.propTypes = {

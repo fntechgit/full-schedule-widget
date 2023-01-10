@@ -12,7 +12,7 @@
  **/
 
 import React, { useState } from 'react';
-import { useLayer, useMousePositionAsTrigger } from 'react-laag';
+import { useLayer } from 'react-laag';
 import EventCountdown from '../countdown';
 import Speakers from '../event-card/speakers';
 import RawHTML from 'openstack-uicore-foundation/lib/components/raw-html';
