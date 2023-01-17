@@ -6,227 +6,218 @@
   margin-bottom: 14px;
   height: auto;
   border: 1px solid var(--color_gray_light);
-  padding: 16px;
-
-  .countdown {
-    font-size: 12px !important;
-    min-width: 100px;
-    position: relative;
-    margin-bottom: 14px;
-
-    i {
-      font-size: 12px !important;
-    }
-  }
-
   .circleButton {
     position: absolute;
     top: 16px;
     right: 16px;
-    z-index: 10;
-
     button {
       position: relative;
     }
   }
-
-  .header {
-    width: 100%;
+  .eventCard {
     position: relative;
-    min-height: 110px;
-    display: flex;
-    flex-direction: row;
-
-    .eventImage {
-      width: 160px;
-      margin-right: 15px;
-
-      img {
-        width: 100%;
-      }
+    padding: 16px;
+    .countdown {
+      font-size: 12px !important;
+      min-width: 100px;
+      position: relative;
+      margin-bottom: 14px;
 
       i {
-        font-size: 105px;
-        text-align: center;
+        font-size: 12px !important;
       }
     }
-
-    .eventInfo {
+    .header {
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    :global(.items-enter) {
-      height: 0;
-    }
-
-    :global(.items-enter.items-enter-active) {
-      height: auto;
-      transition: opacity 1000ms ease-in;
-    }
-
-    :global(.items-leave) {
-      height: auto;
-    }
-
-    :global(.items-leave.items-leave-active) {
-      height: 0;
-      transition: opacity 1000ms ease-in;
-    }
-
-    &.open {
-      cursor: zoom-out;
-    }
-
-    &.closed {
-      cursor: zoom-in;
-    }
-
-    .locationWrapper {
-      margin-bottom: 14px;
-      padding-right: 50px;
-
-      @extend %title-tiny;
-    }
-
-    .title {
-      width: 90%;
-      padding-right: 50px;
-      margin-bottom: 16px;
-      display: inline-flex;
-      @extend %title;
-
-      a {
-        display: inline-flex;
-
-        @extend %title;
-      }
-    }
-
-    .footer {
+      position: relative;
+      min-height: 110px;
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
-      width: 100%;
 
-      .leftCol {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        max-width: 65%;
+      .eventImage {
+        width: 160px;
+        margin-right: 15px;
 
-        .speakerNames {
-          font-weight: bold;
-          font-size: 11px;
-          position: relative;
-          padding-right: 40px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 1;
-          -webkit-box-orient: vertical;
-          margin-top: auto;
+        img {
+          width: 100%;
         }
 
-        .trackWrapper {
-          font-weight: bold;
-          font-size: 11px;
-          position: relative;
-          padding-right: 40px;
-          margin-top: auto;
+        i {
+          font-size: 105px;
+          text-align: center;
         }
       }
 
-      .rightCol {
-        max-width: 35%;
+      .eventInfo {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
 
-        .attendeesWrapper {
-          font-size: 10px;
-          text-align: right;
+      :global(.items-enter) {
+        height: 0;
+      }
+
+      :global(.items-enter.items-enter-active) {
+        height: auto;
+        transition: opacity 1000ms ease-in;
+      }
+
+      :global(.items-leave) {
+        height: auto;
+      }
+
+      :global(.items-leave.items-leave-active) {
+        height: 0;
+        transition: opacity 1000ms ease-in;
+      }
+
+      &.open {
+        cursor: zoom-out;
+      }
+
+      &.closed {
+        cursor: zoom-in;
+      }
+
+      .locationWrapper {
+        margin-bottom: 14px;
+        padding-right: 50px;
+
+        @extend %title-tiny;
+      }
+
+      .title {
+        width: 90%;
+        padding-right: 50px;
+        margin-bottom: 16px;
+        display: inline-flex;
+        @extend %title;
+
+        a {
+          display: inline-flex;
+
+          @extend %title;
+        }
+      }
+
+      .footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+
+        .leftCol {
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          max-width: 65%;
+
+          .speakerNames {
+            font-weight: bold;
+            font-size: 11px;
+            position: relative;
+            padding-right: 40px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            margin-top: auto;
+          }
+
+          .trackWrapper {
+            font-weight: bold;
+            font-size: 11px;
+            position: relative;
+            padding-right: 40px;
+            margin-top: auto;
+          }
         }
 
-        .tagsWrapper {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: right;
+        .rightCol {
+          max-width: 35%;
 
-          .tag {
-            background-color: #F6F6F6;
-            border-radius: 14px;
-            height: 18px;
-            margin: 8px 8px 0 0;
-            padding: 4px 8px;
-            text-transform: uppercase;
+          .attendeesWrapper {
             font-size: 10px;
-            color: var(--color_text_dark);
+            text-align: right;
+          }
 
-            @extend %font-regular;
+          .tagsWrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: right;
+
+            .tag {
+              background-color: #F6F6F6;
+              border-radius: 14px;
+              height: 18px;
+              margin: 8px 8px 0 0;
+              padding: 4px 8px;
+              text-transform: uppercase;
+              font-size: 10px;
+              color: var(--color_text_dark);
+
+              @extend %font-regular;
+            }
           }
         }
       }
     }
-  }
 
-  .detailWrapper {
-    transition: all 0.5s ease-in-out;
-    overflow: hidden;
-    max-height: 500px;
-    margin-bottom: 16px;
+    .detailWrapper {
+      transition: all 0.5s ease-in-out;
+      overflow: hidden;
+      max-height: 500px;
+      margin-bottom: 16px;
 
-    &.hidden {
-      max-height: 0;
+      &.hidden {
+        max-height: 0;
+      }
+
+      @extend %text-med;
     }
 
-    @extend %text-med;
-  }
-
-  .desc-enter {
-    height: 0px;
-  }
-
-  .desc-enter.desc-enter-active {
-    height: 100px;
-    -webkit-transition: height .3s ease;
-  }
-
-  .desc-leave.desc-leave-active {
-    height: 0px;
-    -webkit-transition: height .3s ease;
-  }
-
-  .detailsButton {
-    display: none;
-
-    &.show {
-      display: block;
+    .desc-enter {
+      height: 0px;
     }
 
-    button {
-      color: var(--color_text_dark);
-      font-size: 14px;
-      position: absolute;
-      height: 40px;
-      width: 40px;
-      bottom: -5px;
-      right: 50%;
-      border-radius: 50%;
-      text-align: center;
-      padding: 0;
-      background-color: white;
-      border: 1px solid #E0E0E0;
-      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-      z-index: 10;
+    .desc-enter.desc-enter-active {
+      height: 100px;
+      -webkit-transition: height .3s ease;
     }
+
+    .desc-leave.desc-leave-active {
+      height: 0px;
+      -webkit-transition: height .3s ease;
+    }
+
+    .detailsButton {
+      button {
+        color: var(--color_text_dark);
+        font-size: 14px;
+        position: absolute;
+        height: 40px;
+        width: 40px;
+        bottom: -5px;
+        right: calc(50% - 20px);
+        border-radius: 50%;
+        text-align: center;
+        padding: 0;
+        background-color: white;
+        border: 1px solid #E0E0E0;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+        z-index: 10;
+      }
+    }
+  }
+
+  .eventCard.placeholder {
+    color: lightgray;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 30px;
+    height: 150px;
   }
 }
-
-.wrapper.placeholder {
-  color: lightgray;
-  font-size: 20px;
-  text-align: center;
-  padding-top: 30px;
-  height: 150px;
-}
-
