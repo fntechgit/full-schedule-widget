@@ -126,7 +126,7 @@ const Speakers = ({
                 speaker={speaker}
                 onChat={onChat}
                 onEmail={onEmail} 
-                howSendEmail={showSendEmail}
+                showSendEmail={showSendEmail}
             />
         );
     };
