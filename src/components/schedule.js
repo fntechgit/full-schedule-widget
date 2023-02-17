@@ -29,6 +29,8 @@ import ButtonBar from './button-bar';
 import Modal from './modal';
 import { arrayEquals } from '../tools/utils';
 
+import { setGlobalContainer } from 'react-laag';
+
 import 'openstack-uicore-foundation/lib/css/components/circle-button.css';
 import styles from '../styles/general.module.scss';
 
@@ -39,6 +41,15 @@ class Schedule extends React.Component {
       showSyncModal: false,
       showShareModal: false,
     };
+  }
+
+  componentWillMount() {
+    // append popovers container div to body
+    this.popoversContainer = document.createElement('div');
+    this.popoversContainer.className = styles.popoversContainer;
+    document.body.appendChild(this.popoversContainer);
+    // set div as global container for popovers lib
+    setGlobalContainer(this.popoversContainer);
   }
 
   componentDidMount() {
@@ -71,6 +82,11 @@ class Schedule extends React.Component {
     if (eventsChanged || timezone !== prevTimezone) {
       updateEvents(events);
     }
+  }
+
+  componentWillUnmount() {
+    // remove popovers container div from body
+    document.body.removeChild(this.popoversContainer);
   }
 
   toggleSyncModal = (show) => {
