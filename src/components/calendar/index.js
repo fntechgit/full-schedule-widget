@@ -116,7 +116,6 @@ const Calendar = ({
       ))}
       { enableLayer && renderLayer(
         <div
-          className={styles.eventInfoLayer}
           {...layerProps}
         >
           <Fade
