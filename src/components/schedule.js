@@ -46,6 +46,7 @@ class Schedule extends React.Component {
   componentWillMount() {
     // append popovers container div to body
     this.popoversContainer = document.createElement('div');
+    this.popoversContainer.id = 'popovers-container';
     this.popoversContainer.className = styles.popoversContainer;
     document.body.appendChild(this.popoversContainer);
     // set div as global container for popovers lib
