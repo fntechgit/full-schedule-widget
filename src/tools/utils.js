@@ -142,10 +142,10 @@ export const getCurrentHourFromEvents = (events, summit, nowUtc) => {
 
   if (nextHourIdx > 0) {
     currentHour = hours[nextHourIdx - 1];
-  } else {
+  } else  if (hours.length > 0) {
     // check if last hour is still on
     const lastHour = hours[hours.length - 1];
-    const ongoingEvent = lastHour && lastHour.events?.length > 0 ? lastHour.events.find(ev => ev.start_date < nowUtc && ev.end_date > nowUtc) : null;
+    const ongoingEvent = lastHour.events.find(ev => ev.start_date < nowUtc && ev.end_date > nowUtc);
     if (ongoingEvent) {
       currentHour = lastHour;
     }
