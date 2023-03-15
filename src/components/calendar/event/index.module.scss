@@ -8,7 +8,7 @@
     flex-direction: column;
     justify-content: space-between;
     min-width: 50px;
-    height: 63px;
+    min-height: 63px;
     border-radius: 4px;
     padding: 8px;
     cursor: pointer;
@@ -42,18 +42,13 @@
     .title {
       flex: 1;
       line-height: 22px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
 
       @extend %title-small;
     }
 
     .speakers {
+      padding-top: 8px;
       color: var(--color_text_dark);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
 
       .speaker {
         @extend %title-tiny;
