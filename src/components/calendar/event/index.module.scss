@@ -46,6 +46,12 @@
       @extend %title-small;
     }
 
+    .location {
+      color: var(--color_text_dark);
+      
+      @extend %text-small;
+    }
+
     .speakers {
       padding-top: 8px;
       color: var(--color_text_dark);

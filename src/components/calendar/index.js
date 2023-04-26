@@ -110,6 +110,7 @@ const Calendar = ({
         <Day
           {...date}
           settings={settings}
+          summit={summit}
           onEventClick={onEventClick}
           key={`cal-day-${date.dateString}`}
         />

@@ -51,19 +51,19 @@ export const getNowFromQS = (timezone) => {
 
 export const getLocation = (event, summit, nowUtc) => {
   const shouldShowVenues = summit.start_showing_venues_date * 1000 < nowUtc;
-  let locationName = '';
+  const locationName = [];
   const { location } = event;
+  const venueCount = summit.locations.filter(loc => loc.class_name === 'SummitVenue');
 
   if (!shouldShowVenues) return 'TBA';
 
   if (!location) return 'TBA';
 
-  if (location.venue && location.venue.name) locationName = location.venue.name;
-  if (location.floor && location.floor.name)
-    locationName = `${locationName} - ${location.floor.name}`;
-  if (location.name) locationName = `${locationName} - ${location.name}`;
+  if (venueCount > 1 && location.venue && location.venue.name) locationName.push(location.venue.name);
+  if (location.floor && location.floor.name) locationName.push(location.floor.name);
+  if (location.name) locationName.push(location.name);
 
-  return locationName || 'TBA';
+  return locationName.length > 0 ? locationName.join(' - ') : 'TBA';
 };
 
 export const fallsWithinTheTimeBlock = (startTime, endTime, timeToCheck) =>

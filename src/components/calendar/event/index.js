@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import liveNowPill from '../../../images/live-now-pill.svg';
 import styles from './index.module.scss';
-import { isLive } from '../../../tools/utils';
+import { getLocation, isLive } from '../../../tools/utils';
 
-const Event = ({ event, nowUtc, onEventClick }) => {
+const Event = ({ summit, event, nowUtc, onEventClick }) => {
   const eventStyles = {
     backgroundColor: event.eventColor,
   };
@@ -29,6 +29,8 @@ const Event = ({ event, nowUtc, onEventClick }) => {
     </React.Fragment>
   ));
 
+  const locationStr = getLocation(event, summit, nowUtc);
+
   return (
     <div className={styles.outerWrapper}>
       <div
@@ -47,7 +49,9 @@ const Event = ({ event, nowUtc, onEventClick }) => {
           )}
           <p className={styles.title}>{event.title}</p>
         </div>
-
+        {locationStr &&
+          <p className={styles.location}>{locationStr}</p>
+        }
         {speakers.length > 0 && (
           <p className={styles.speakers}>By {speakers}</p>
         )}
