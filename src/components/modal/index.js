@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { ModalUnstyled } from '@mui/base';
+import { Modal } from '@mui/base';
 import { Appear } from '../../tools/animations';
 
 import styles from './index.module.scss';
@@ -19,7 +19,7 @@ export default ({ show, onHide, title, text, link }) => {
         }
     };
     return (
-        <ModalUnstyled
+        <Modal
             open={show}
             disableAutoFocus
             disablePortal
@@ -41,6 +41,6 @@ export default ({ show, onHide, title, text, link }) => {
                     <button className={styles.copy} onClick={onCopy}>{copyText}</button>
                 </div>
             </Appear>
-        </ModalUnstyled>
+        </Modal>
     );
 }
