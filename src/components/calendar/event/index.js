@@ -5,7 +5,7 @@ import liveNowPill from '../../../images/live-now-pill.svg';
 import styles from './index.module.scss';
 import { getLocation, isLive } from '../../../tools/utils';
 
-const Event = ({ summit, event, nowUtc, onEventClick }) => {
+const Event = ({ summitShowLoc, summitVenueCount, event, nowUtc, onEventClick }) => {
   const eventStyles = {
     backgroundColor: event.eventColor,
   };
@@ -29,7 +29,7 @@ const Event = ({ summit, event, nowUtc, onEventClick }) => {
     </React.Fragment>
   ));
 
-  const locationStr = getLocation(event, summit, nowUtc);
+  const locationStr = getLocation(event, summitShowLoc, summitVenueCount, nowUtc);
 
   return (
     <div className={styles.outerWrapper}>

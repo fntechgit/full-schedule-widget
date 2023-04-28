@@ -37,6 +37,7 @@ const Calendar = ({
   const [showEventInfo, setShowEventInfo] = useState(false);
   const groupedEvents = getEventsByDayAndHour(events, summit);
   const filteredGroupedEvents = groupedEvents.filter((d) => d.hours.length);
+  const venueCount = summit.locations.filter(loc => loc.class_name === 'SummitVenue');
 
   const onEventClick = (ev, event) => {
     handleMouseEvent(ev);
@@ -110,7 +111,8 @@ const Calendar = ({
         <Day
           {...date}
           settings={settings}
-          summit={summit}
+          summitShowLoc={summit.start_showing_venues_date}
+          summitVenueCount={venueCount}
           onEventClick={onEventClick}
           key={`cal-day-${date.dateString}`}
         />

@@ -7,7 +7,8 @@ import styles from './index.module.scss';
 const JustStartedSkew = 5 * 60;
 
 const Hour = ({
-  summit,
+  summitShowLoc,
+  summitVenueCount,
   hour,
   hourLabel,
   events,
@@ -29,7 +30,8 @@ const Hour = ({
         {events.map((ev, idx) => (
           <Event
             event={ev}
-            summit={summit}
+            summitShowLoc={summitShowLoc}
+            summitVenueCount={summitVenueCount}
             position={idx}
             nowUtc={nowUtc}
             onEventClick={onEventClick}

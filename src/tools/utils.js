@@ -49,18 +49,17 @@ export const getNowFromQS = (timezone) => {
   return momentQS.isValid() ? momentQS.valueOf() / 1000 : null;
 };
 
-export const getLocation = (event, summit, nowUtc) => {
-  const shouldShowVenues = summit.start_showing_venues_date * 1000 < nowUtc;
+export const getLocation = (event, summitShowLocDate, summitVenueCount, nowUtc) => {
+  const shouldShowVenues = summitShowLocDate ? summitShowLocDate * 1000 < nowUtc : true;
   const locationName = [];
   const { location } = event;
-  const venueCount = summit.locations.filter(loc => loc.class_name === 'SummitVenue');
 
   if (!shouldShowVenues) return 'TBA';
 
   if (!location) return 'TBA';
 
-  if (venueCount > 1 && location.venue && location.venue.name) locationName.push(location.venue.name);
-  if (location.floor && location.floor.name) locationName.push(location.floor.name);
+  if (summitVenueCount > 1 && location.venue?.name) locationName.push(location.venue.name);
+  if (location.floor?.name) locationName.push(location.floor.name);
   if (location.name) locationName.push(location.name);
 
   return locationName.length > 0 ? locationName.join(' - ') : 'TBA';

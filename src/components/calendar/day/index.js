@@ -5,7 +5,7 @@ import Hour from '../hour';
 import styles from './index.module.scss';
 import { Element } from 'react-scroll/modules';
 
-const Day = ({ summit, settings, dateString, dateStringDay, hours, onEventClick }) => {
+const Day = ({ summitShowLoc, summitVenueCount, settings, dateString, dateStringDay, hours, onEventClick }) => {
   const { nowUtc, currentHour } = settings;
 
   return (
@@ -21,7 +21,8 @@ const Day = ({ summit, settings, dateString, dateStringDay, hours, onEventClick 
               <Element name='currentHour'>
                 <Hour
                   {...hour}
-                  summit={summit}
+                  summitShowLoc={summitShowLoc}
+                  summitVenueCount={summitVenueCount}
                   currentHour={currentHour}
                   nowUtc={nowUtc}
                   onEventClick={onEventClick}
@@ -32,7 +33,8 @@ const Day = ({ summit, settings, dateString, dateStringDay, hours, onEventClick 
             <React.Fragment key={`cal-hr-${hour.hour}`}>
               <Hour
                 {...hour}
-                summit={summit}
+                summitShowLoc={summitShowLoc}
+                summitVenueCount={summitVenueCount}
                 nowUtc={nowUtc}
                 onEventClick={onEventClick}
               />

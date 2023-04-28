@@ -61,6 +61,8 @@ const EventHeader = ({
     const eventDate = event.startTimeAtTimezone.format('ddd, MMMM D');
     const eventStartTime = event.startTimeAtTimezone.format('h:mma');
     const eventEndTime = event.endTimeAtTimezone.format('h:mma');
+    const venueCount = summit.locations.filter(loc => loc.class_name === 'SummitVenue');
+    const locationStr = getLocation(event, summit.start_showing_venues_date, venueCount, nowUtc);
 
     return (
         <div className={styles.header}>
@@ -71,7 +73,7 @@ const EventHeader = ({
             }
             <div className={styles.eventInfo}>
                 <div className={styles.locationWrapper}>
-                    {`${eventDate}, ${eventStartTime} - ${eventEndTime} | ${getLocation(event, summit, nowUtc)}`}
+                    {`${eventDate}, ${eventStartTime} - ${eventEndTime} | ${locationStr}`}
                 </div>
                 <div className={styles.title}>
                     {getTitleTag()}
