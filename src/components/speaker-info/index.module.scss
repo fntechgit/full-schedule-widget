@@ -61,6 +61,8 @@
     }
   }
   .description {
+    max-height: 60vh;
+    overflow-y: auto;
     @extend %text-small;
   }
   .actionWrapper {

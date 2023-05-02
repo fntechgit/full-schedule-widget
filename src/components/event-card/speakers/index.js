@@ -37,9 +37,9 @@ const SpeakerPopover = ({
     const [
         isOver,
         hoverProps,
-        close
+        close,
     ] = useHover({
-        hideOnScroll: !isMobile
+        hideOnScroll: false
     });
 
     const {
