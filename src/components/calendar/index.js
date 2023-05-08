@@ -37,7 +37,7 @@ const Calendar = ({
   const [showEventInfo, setShowEventInfo] = useState(false);
   const groupedEvents = getEventsByDayAndHour(events, summit);
   const filteredGroupedEvents = groupedEvents.filter((d) => d.hours.length);
-  const venueCount = summit.locations.filter(loc => loc.class_name === 'SummitVenue');
+  const venueCount = summit.locations?.filter(loc => loc.class_name === 'SummitVenue')?.length || 0;
 
   const onEventClick = (ev, event) => {
     handleMouseEvent(ev);
