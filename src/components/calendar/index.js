@@ -128,6 +128,7 @@ const Calendar = ({
             <EventInfo
               event={eventDetails}
               {...eventInfoProps}
+              summitVenueCount={venueCount}
               onClose={() => onEventInfoClose()}
             />
           </Fade>

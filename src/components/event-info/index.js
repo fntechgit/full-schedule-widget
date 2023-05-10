@@ -37,15 +37,15 @@ const EventInfo = React.forwardRef(({
     loggedUser,
     onEmail,
     onChat,
-    showSendEmail
+    showSendEmail,
+    summitVenueCount
 }, ref) => {
     if (!event) return null;
 
     const eventDate = event.startTimeAtTimezone.format('ddd, MMMM D');
     const eventStartTime = event.startTimeAtTimezone.format('h:mma');
     const eventEndTime = event.endTimeAtTimezone.format('h:mma');
-    const venueCount = summit.locations.filter(loc => loc.class_name === 'SummitVenue');
-    const locationStr = getLocation(event, summit.start_showing_venues_date, venueCount, nowUtc);
+    const locationStr = getLocation(event, summit.start_showing_venues_date, summitVenueCount, nowUtc);
 
     const getTitleTag = () => {
         const handleClick = ev => {
