@@ -13,15 +13,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-    useHover,
-    useLayer,
-    Arrow
-} from "react-laag";
-import {
-  useIsMobileScreen
-} from '../../../tools/utils';
+import { useHover, useLayer, Arrow } from "react-laag";
+import { useIsMobileScreen } from '../../../tools/utils';
 import SpeakerInfo from '../../speaker-info';
+import {getHosts} from '../../../tools/utils';
 
 import styles from './index.module.scss'
 
@@ -109,18 +104,8 @@ const Speakers = ({
     showSendEmail
 }) => {
 
-    const getHosts = () => {
-        let hosts = [];
-        if (event.speakers?.length > 0) {
-            hosts = [...event.speakers];
-        }
-        if (event.moderator) hosts.push(event.moderator);
-
-        return hosts;
-    };
-
     const getSpeakersWithPic = () => {
-        return getHosts().map((speaker, i) =>
+        return getHosts(event).map((speaker, i) =>
             <SpeakerPopover
                 key={`ev-${event.id}-speaker-${speaker.id}-${i}`}
                 speaker={speaker}
@@ -132,7 +117,7 @@ const Speakers = ({
     };
 
     const getSpeakers = () => {
-      const speakerTags = getHosts().map((sp, i) => {
+      const speakerTags = getHosts(event).map((sp, i) => {
           const spkrName = <>{sp.first_name} {sp.last_name} {sp.company ? <span className={styles.company}> - {sp.company}</span> : ''}</>;
           return <span className={styles.name} key={`spkr-${sp.id}-${i}`}>{i === 0 ? spkrName : <>, {spkrName}</> }</span>;
       });
@@ -158,14 +143,16 @@ const Speakers = ({
 Speakers.propTypes = {
     event: PropTypes.object.isRequired,
     withPic: PropTypes.bool,
-    onChat: PropTypes.func.isRequired,
-    onEmail: PropTypes.func.isRequired,
+    onChat: PropTypes.func,
+    onEmail: PropTypes.func,
     className: PropTypes.string
 };
 
 Speakers.defaultProps = {
     withPic: false,
-    className: ''
+    className: '',
+    onChat: () => console.log('onChat not defined'),
+    onEmail: () => console.log('onEmail not defined'),
 };
 
 export default Speakers

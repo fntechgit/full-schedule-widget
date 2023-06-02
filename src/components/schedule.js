@@ -28,7 +28,6 @@ import {
 import ButtonBar from './button-bar';
 import Modal from './modal';
 import { arrayEquals } from '../tools/utils';
-
 import { setGlobalContainer } from 'react-laag';
 
 import 'openstack-uicore-foundation/lib/css/components/circle-button.css';
@@ -139,6 +138,7 @@ class Schedule extends React.Component {
             onSync={() => this.toggleSyncModal(true)}
             onShare={() => this.toggleShareModal(true)}
             showSync={settings.showSync}
+            showPrint={settings.showPrint}
           />
         </div>
         <div className={styles.innerWrapper}>

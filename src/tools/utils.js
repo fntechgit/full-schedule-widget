@@ -65,6 +65,16 @@ export const getLocation = (event, summitShowLocDate, summitVenueCount, nowUtc) 
   return locationName.length > 0 ? locationName.join(' - ') : 'TBA';
 };
 
+export const getHosts = (event) => {
+  let hosts = [];
+  if (event.speakers?.length > 0) {
+    hosts = [...event.speakers];
+  }
+  if (event.moderator) hosts.push(event.moderator);
+
+  return hosts;
+};
+
 export const fallsWithinTheTimeBlock = (startTime, endTime, timeToCheck) =>
   startTime <= timeToCheck && timeToCheck < endTime;
 
