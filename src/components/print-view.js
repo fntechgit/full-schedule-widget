@@ -13,14 +13,39 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Document, Page, StyleSheet, View, Text } from '@react-pdf/renderer';
+import { Document, Page, StyleSheet, View, Text, Image } from '@react-pdf/renderer';
 import { getHosts, getLocation } from '../tools/utils';
+import { epochToMomentTimeZone } from 'openstack-uicore-foundation/lib/utils/methods';
 
 // Create styles
 const styles = StyleSheet.create({
   header: {
     fontSize: '20px',
     textAlign: 'center'
+  },
+  headlineWrapper: {
+    margin: '10px 10px 20px',
+    display: 'flex',
+    flexDirection: 'row',
+    height: '60px'
+  },
+  headline: {
+    margin: 'auto'
+  },
+  logo: {
+    width: '100px',
+    margin: '20px 20px 20px 0',
+  },
+  subtitle: {
+    padding: '10px',
+    fontSize: '14px',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  label: {
+    fontSize: '10px',
+    textTransform: 'uppercase'
   },
   eventList: {
     flexDirection: 'column',
@@ -106,11 +131,29 @@ const PrintView = ({ events, summit, nowUtc }) => {
     return null;
   };
 
+  const venue = summit.locations.find(l => l.class_name === 'SummitVenue');
+  const summitStart = epochToMomentTimeZone(summit.start_date, summit.time_zone_id).format('MMMM Do YYYY');
+  const summitEnd = epochToMomentTimeZone(summit.end_date, summit.time_zone_id).format('MMMM Do YYYY');
+
   return (
     <Document>
       <Page size='A4' style={styles.eventList}>
         <View style={styles.header}>
-          <Text>Schedule</Text>
+          <View style={styles.headlineWrapper}>
+            <Image src={summit.logo} style={styles.logo} />
+            <Text style={styles.headline}>Schedule for {summit.name}</Text>
+          </View>
+          <View style={styles.subtitle}>
+            <View>
+              <Text style={styles.label}>Venue:</Text><Text>{venue?.name}</Text>
+            </View>
+            <View>
+              <Text style={styles.label}>Start:</Text><Text>{summitStart}</Text>
+            </View>
+            <View>
+              <Text style={styles.label}>End:</Text><Text>{summitEnd}</Text>
+            </View>
+          </View>
         </View>
         {events.map(event => {
           const eventDate = event.startTimeAtTimezone.format('ddd, MMMM D');
