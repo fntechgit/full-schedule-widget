@@ -23,7 +23,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const scheduleProps = {
   events: EventsData,
-  summit: SummitData.summit,
+  summit: SummitData,
   marketingSettings: marketingSettings.colors,
   userProfile: {schedule_summit_events: [{ id: 3243 }]},
   colorSource: 'track',

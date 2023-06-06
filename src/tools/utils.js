@@ -171,3 +171,32 @@ export const arrayEquals = (a, b) => {
         a.length === b.length &&
         a.every((val, index) => JSON.stringify(val) === JSON.stringify(b[index]));
 }
+
+
+/*************** SVG TO PNG for print version *****************************************/
+
+const loadImage = async url => {
+  const img = document.createElement('img')
+  img.src = url
+  img.crossOrigin = 'anonymous'
+
+  return new Promise((resolve, reject) => {
+    img.onload = () => resolve(img)
+    img.onerror = reject
+  })
+}
+
+export const convertSVGtoImg = async (svgUrl) => {
+  const img = await loadImage(svgUrl)
+  const newWidth = 100
+  const newHeight = Math.floor(img.naturalHeight * 100 / img.naturalWidth)
+
+  const canvas = document.createElement('canvas')
+  canvas.width = newWidth
+  canvas.height = newHeight
+  canvas.getContext('2d').drawImage(img, 0, 0, newWidth, newHeight)
+
+  const url = await canvas.toDataURL(`image/png`, 1.0)
+  console.log(url, newWidth, newHeight);
+  return {url, width: newWidth, height: newHeight}
+}

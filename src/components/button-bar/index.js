@@ -33,9 +33,7 @@ const ButtonBar = ({
       <Button
         role='button'
         tabIndex={0}
-        className={`${styles.button} ${styles.timezoneBtn} ${
-          isLocalTZ ? 'active' : ''
-        }`}
+        className={`${styles.button} ${styles.timezoneBtn} ${isLocalTZ ? 'active' : ''}`}
         aria-labelledby='timezone'
         aria-pressed={isLocalTZ}
         onClick={() => onChangeTimezone(isLocalTZ ? 'show' : 'local')}

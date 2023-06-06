@@ -17,7 +17,7 @@ describe("FullSchedule", () => {
 
         const scheduleProps = {
             events: EventsData,
-            summit: SummitData.summit,
+            summit: SummitData,
             marketingSettings: marketingSettings.colors,
             userProfile: null,
             colorSource: 'track',

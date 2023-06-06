@@ -11,64 +11,63 @@
  * limitations under the License.
  **/
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Document, Page, StyleSheet, View, Text, Image } from '@react-pdf/renderer';
-import { getHosts, getLocation } from '../tools/utils';
+import { convertSVGtoImg, getHosts, getLocation } from '../tools/utils';
 import { epochToMomentTimeZone } from 'openstack-uicore-foundation/lib/utils/methods';
 
 // Create styles
 const styles = StyleSheet.create({
   header: {
-    fontSize: '20px',
+    fontSize: '18px',
     textAlign: 'center'
   },
   headlineWrapper: {
-    margin: '10px 10px 20px',
+    margin: '0 10px 20px',
     display: 'flex',
     flexDirection: 'row',
-    height: '60px'
   },
   headline: {
     margin: 'auto'
   },
   logo: {
-    width: '100px',
-    margin: '20px 20px 20px 0',
+    marginRight: '20px',
+    backgroundColor: 'lightgray'
   },
   subtitle: {
     padding: '10px',
-    fontSize: '14px',
+    fontSize: '12px',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
   label: {
-    fontSize: '10px',
+    fontSize: '8px',
     textTransform: 'uppercase'
   },
   eventList: {
     flexDirection: 'column',
     display: 'flex',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    padding: '20px'
   },
   eventWrapper: {
-    margin: 10,
-    padding: 10,
+    margin: 5,
+    padding: 5,
     flexGrow: 1,
     border: '1px solid black'
   },
   locationWrapper: {
-    marginBottom: 14,
-    paddingRight: 50,
-    fontSize: '12px',
+    marginBottom: 8,
+    fontSize: '10px',
     color: '#4A4A4A',
     fontWeight: 600,
   },
   title: {
-    marginBottom: 16,
+    marginBottom: 10,
     display: 'inline-flex',
-    fontSize: '16px',
+    fontSize: '12px',
     color: '#4A4A4A',
     fontWeight: 600,
   },
@@ -85,14 +84,13 @@ const styles = StyleSheet.create({
     maxWidth: '65%',
   },
   speakers: {
-    fontSize: '12px',
+    fontSize: '10px',
     color: '#4A4A4A',
   },
   trackWrapper: {
     fontWeight: 'bold',
     fontSize: '10px',
     position: 'relative',
-    paddingRight: 40,
     marginTop: 'auto',
   },
   rightCol: {
@@ -106,17 +104,17 @@ const styles = StyleSheet.create({
   tag: {
     backgroundColor: '#F6F6F6',
     borderRadius: '14px',
-    height: 18,
-    margin: '8px 8px 0 0',
-    padding: '4px 8px',
+    height: 12,
+    margin: '6px 6px 0 0',
+    padding: '2px 4px',
     textTransform: 'uppercase',
-    fontSize: '10px',
+    fontSize: '8px',
     color: '#4A4A4A',
   }
 });
 
 const PrintView = ({ events, summit, nowUtc }) => {
-
+  const [imgData, setImgData] = useState(null);
   const getSpeakers = (event) => {
     const speakerTags = getHosts(event).map(sp => `${sp.first_name} ${sp.last_name}`);
 
@@ -135,12 +133,25 @@ const PrintView = ({ events, summit, nowUtc }) => {
   const summitStart = epochToMomentTimeZone(summit.start_date, summit.time_zone_id).format('MMMM Do YYYY');
   const summitEnd = epochToMomentTimeZone(summit.end_date, summit.time_zone_id).format('MMMM Do YYYY');
 
+  useEffect(() => {
+    if (summit.logo) {
+      const getPngLogo = async () => {
+        const _imgData = await convertSVGtoImg(summit.logo);
+        setImgData(_imgData);
+      }
+
+      getPngLogo();
+    }
+  }, [summit.logo])
+
+  if (!imgData) return null;
+
   return (
     <Document>
       <Page size='A4' style={styles.eventList}>
         <View style={styles.header}>
           <View style={styles.headlineWrapper}>
-            <Image src={summit.logo} style={styles.logo} />
+            <Image src={imgData.url} style={{...styles.logo, width: imgData.width, height: imgData.height}} />
             <Text style={styles.headline}>Schedule for {summit.name}</Text>
           </View>
           <View style={styles.subtitle}>
@@ -164,7 +175,7 @@ const PrintView = ({ events, summit, nowUtc }) => {
 
           return (
             <View
-              style={{...styles.eventWrapper, borderLeft: `6px solid ${event.eventColor}`}}
+              style={{...styles.eventWrapper, borderLeft: `4px solid ${event.eventColor}`}}
               key={`event-${event.id}`}
               wrap={false}
             >
