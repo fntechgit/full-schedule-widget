@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
   eventWrapper: {
     margin: 5,
     padding: 5,
-    flexGrow: 1,
     border: '1px solid black'
   },
   locationWrapper: {
@@ -103,12 +102,12 @@ const styles = StyleSheet.create({
   },
   tag: {
     backgroundColor: '#F6F6F6',
-    borderRadius: '14px',
-    height: 12,
-    margin: '6px 6px 0 0',
-    padding: '2px 4px',
+    borderRadius: '8px',
+    height: '10px',
+    margin: '4px 4px 0 0',
+    padding: '1px 2px',
     textTransform: 'uppercase',
-    fontSize: '8px',
+    fontSize: '6px',
     color: '#4A4A4A',
   }
 });
