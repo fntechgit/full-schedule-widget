@@ -89,6 +89,11 @@
         flex-grow: 1;
 
         @extend %text-small;
+
+        ul {
+          list-style: disc !important;
+          padding-left: 20px !important;
+        }
       }
 
       .speakersWrapper {
