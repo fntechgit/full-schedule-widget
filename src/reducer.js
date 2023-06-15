@@ -49,6 +49,7 @@ const DEFAULT_STATE = {
     triggerAction: null,
     showSendEmail: false,
     showSync: false,
+    showPrint: true,
     modalSyncTitle: 'Calendar Sync',
     modalSyncText:
       'Use this link to add to your personal calendar and keep the items you added to your schedule in sync',

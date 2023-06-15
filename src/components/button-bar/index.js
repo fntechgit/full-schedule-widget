@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { scroller } from 'react-scroll/modules';
+import PrintView from '../print-view';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 
 import styles from './index.module.scss';
+import { connect } from 'react-redux';
 
 const ButtonBar = ({
   currentHour,
@@ -13,10 +16,13 @@ const ButtonBar = ({
   onChangeTimezone,
   onSync,
   onShare,
-  showSync
+  showSync,
+  showPrint,
+  ...props
 }) => {
   const isLocalTZ = timezone === 'local';
   const timezoneLabel = isLocalTZ ? 'Your Local Timezone' : summitTimezoneLabel;
+  const [downloadPdf, setDownloadPdf] = useState(false);
 
   useEffect(() => {
     scroller.scrollTo('currentHour');
@@ -27,9 +33,7 @@ const ButtonBar = ({
       <Button
         role='button'
         tabIndex={0}
-        className={`${styles.button} ${styles.timezoneBtn} ${
-          isLocalTZ ? 'active' : ''
-        }`}
+        className={`${styles.button} ${styles.timezoneBtn} ${isLocalTZ ? 'active' : ''}`}
         aria-labelledby='timezone'
         aria-pressed={isLocalTZ}
         onClick={() => onChangeTimezone(isLocalTZ ? 'show' : 'local')}
@@ -50,6 +54,24 @@ const ButtonBar = ({
 
       <div className={styles.buttonGroup}>
         <div className={styles.firstGroup}>
+          {showPrint && !downloadPdf &&
+            <Button onClick={() => setDownloadPdf(true)} className={`${styles.button} ${styles.cal}`}>
+              <i className='fa fa-print' aria-hidden='true' />
+              Print
+            </Button>
+          }
+          {downloadPdf &&
+            <PDFDownloadLink
+              className={`${styles.button} ${styles.cal}`}
+              document={<PrintView events={props.events} summit={props.summit} nowUtc={props.settings.nowUtc}/>}
+              fileName="schedule.pdf"
+            >
+              {({ blob, url, loading, error }) => {
+                return (!blob || loading ? 'Creating document...' : 'Download PDF');
+              }
+              }
+            </PDFDownloadLink>
+          }
           {showSync &&
             <Button onClick={onSync} className={`${styles.button} ${styles.cal}`}>
               <i className='fa fa-refresh' aria-hidden='true' />
@@ -106,4 +128,9 @@ const ButtonBar = ({
   );
 };
 
-export default ButtonBar;
+function mapStateToProps(scheduleState) {
+  return {
+    ...scheduleState
+  };
+}
+export default connect(mapStateToProps)(ButtonBar);

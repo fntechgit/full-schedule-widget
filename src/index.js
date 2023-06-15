@@ -23,7 +23,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const scheduleProps = {
   events: EventsData,
-  summit: SummitData.summit,
+  summit: SummitData,
   marketingSettings: marketingSettings.colors,
   userProfile: {schedule_summit_events: [{ id: 3243 }]},
   colorSource: 'track',
@@ -39,6 +39,7 @@ const scheduleProps = {
   onStartChat: console.log,
   showSendEmail: true,
   shareLink: 'santi.com/share',
+  showPrint: true,
   needsLogin: pendingEvent => console.log('login needed', pendingEvent),
   triggerAction: (action, payload) =>
     new Promise((resolve, reject) => {
