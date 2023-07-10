@@ -6,8 +6,10 @@ import styles from './index.module.scss';
 import { getLocation, isLive } from '../../../tools/utils';
 
 const Event = ({ summitShowLoc, summitVenueCount, event, nowUtc, onEventClick }) => {
+  const textColor = event.track.text_color ? {color: event.track.text_color} : {};
   const eventStyles = {
     backgroundColor: event.eventColor,
+    ...textColor
   };
 
   const getHosts = () => {
@@ -23,7 +25,7 @@ const Event = ({ summitShowLoc, summitVenueCount, event, nowUtc, onEventClick })
   const speakers = getHosts().map((s, i) => (
     <React.Fragment key={`ev-${event.id}-spkr-${s.id}`}>
       {i > 0 ? ', ' : ''}
-      <span className={styles.speaker}>
+      <span className={styles.speaker} style={textColor}>
         {s.first_name} {s.last_name}
       </span>
     </React.Fragment>
@@ -47,13 +49,13 @@ const Event = ({ summitShowLoc, summitVenueCount, event, nowUtc, onEventClick })
               alt='This event is live now'
             />
           )}
-          <p className={styles.title}>{event.title}</p>
+          <p className={styles.title} style={textColor}>{event.title}</p>
         </div>
         {locationStr &&
-          <p className={styles.location}>{locationStr}</p>
+          <p className={styles.location} style={textColor}>{locationStr}</p>
         }
         {speakers.length > 0 && (
-          <p className={styles.speakers}>By {speakers}</p>
+          <p className={styles.speakers} style={textColor}>By {speakers}</p>
         )}
       </div>
     </div>
