@@ -33,7 +33,7 @@ export default ({ show, onHide, title, text, link }) => {
                 <div className={styles.modalBody}>
                     <div className={styles.text} dangerouslySetInnerHTML={{ __html: text }}></div>
                     <div className={styles.linkWrapper}>
-                        <span className={styles.link}>{link}</span>
+                        <a href={link?.replace('https', 'webcal')} target="_blank" className={styles.link}>{link}</a>
                     </div>
                 </div>
                 <div className={styles.modalFooter}>

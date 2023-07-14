@@ -18,6 +18,7 @@ const ButtonBar = ({
   onShare,
   showSync,
   showPrint,
+  loggedUser,
   ...props
 }) => {
   const isLocalTZ = timezone === 'local';
@@ -72,7 +73,7 @@ const ButtonBar = ({
               }
             </PDFDownloadLink>
           }
-          {showSync &&
+          {showSync && loggedUser?.schedule_shareable_link &&
             <Button onClick={onSync} className={`${styles.button} ${styles.cal}`}>
               <i className='fa fa-refresh' aria-hidden='true' />
               Calendar Sync

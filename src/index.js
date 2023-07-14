@@ -40,6 +40,7 @@ const scheduleProps = {
   showSendEmail: true,
   shareLink: 'santi.com/share',
   showPrint: true,
+  showSync: true,
   needsLogin: pendingEvent => console.log('login needed', pendingEvent),
   triggerAction: (action, payload) =>
     new Promise((resolve, reject) => {
