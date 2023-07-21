@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
 
 const PrintView = ({ events, summit, nowUtc }) => {
   const [imgData, setImgData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const getSpeakers = (event) => {
     const speakerTags = getHosts(event).map(sp => `${sp.first_name} ${sp.last_name}`);
 
@@ -134,23 +135,25 @@ const PrintView = ({ events, summit, nowUtc }) => {
 
   useEffect(() => {
     if (summit.logo) {
+      setLoading(true);
       const getPngLogo = async () => {
         const _imgData = await convertSVGtoImg(summit.logo);
         setImgData(_imgData);
+        setLoading(false);
       }
 
       getPngLogo();
     }
   }, [summit.logo])
 
-  if (!imgData) return null;
+  if (loading) return null;
 
   return (
     <Document>
       <Page size='A4' style={styles.eventList}>
         <View style={styles.header}>
           <View style={styles.headlineWrapper}>
-            <Image src={imgData.url} style={{...styles.logo, width: imgData.width, height: imgData.height}} />
+            {imgData && <Image src={imgData.url} style={{...styles.logo, width: imgData.width, height: imgData.height}} />}
             <Text style={styles.headline}>Schedule for {summit.name}</Text>
           </View>
           <View style={styles.subtitle}>

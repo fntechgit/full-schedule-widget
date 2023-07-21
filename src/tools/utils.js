@@ -11,8 +11,8 @@
  * limitations under the License.
  **/
 
-import { useEffect, useState } from 'react';
-import { epochToMoment } from 'openstack-uicore-foundation/lib/utils/methods';
+import {useEffect, useState} from 'react';
+import {epochToMoment} from 'openstack-uicore-foundation/lib/utils/methods';
 import FragmentParser from 'openstack-uicore-foundation/lib/utils/fragment-parser';
 import moment from 'moment-timezone';
 
@@ -21,13 +21,13 @@ const MEDIUM_DEVICE_SCREEN_WIDTH = 768;
 const fragmentParser = new FragmentParser();
 
 export const useIsMobileScreen = () => {
-    const [width, setWidth] = useState(window?.innerWidth);
-    const handleWindowSizeChange = () => setWidth(window?.innerWidth);
-    useEffect(() => {
-        window.addEventListener('resize', handleWindowSizeChange);
-        return () => window.removeEventListener('resize', handleWindowSizeChange);
-    }, []);
-    return (width < MEDIUM_DEVICE_SCREEN_WIDTH);
+  const [width, setWidth] = useState(window?.innerWidth);
+  const handleWindowSizeChange = () => setWidth(window?.innerWidth);
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => window.removeEventListener('resize', handleWindowSizeChange);
+  }, []);
+  return (width < MEDIUM_DEVICE_SCREEN_WIDTH);
 };
 
 export const isLive = (event, nowUtc) => {
@@ -52,7 +52,7 @@ export const getNowFromQS = (timezone) => {
 export const getLocation = (event, summitShowLocDate, summitVenueCount, nowUtc) => {
   const shouldShowVenues = summitShowLocDate ? summitShowLocDate * 1000 < nowUtc : true;
   const locationName = [];
-  const { location } = event;
+  const {location} = event;
 
   if (!shouldShowVenues) return 'TBA';
 
@@ -149,7 +149,7 @@ export const getCurrentHourFromEvents = (events, summit, nowUtc) => {
   if (hours.length > 0) {
     // find first hour that follows nowUtc
     const nextHourIdx = hours.findIndex(h => h.hour >= nowUtc);
-  
+
     if (nextHourIdx > 0) {
       currentHour = hours[nextHourIdx - 1];
     } else {
@@ -166,37 +166,48 @@ export const getCurrentHourFromEvents = (events, summit, nowUtc) => {
 };
 
 export const arrayEquals = (a, b) => {
-    return Array.isArray(a) &&
-        Array.isArray(b) &&
-        a.length === b.length &&
-        a.every((val, index) => JSON.stringify(val) === JSON.stringify(b[index]));
+  return Array.isArray(a) &&
+    Array.isArray(b) &&
+    a.length === b.length &&
+    a.every((val, index) => JSON.stringify(val) === JSON.stringify(b[index]));
 }
 
 
 /*************** SVG TO PNG for print version *****************************************/
 
 const loadImage = async url => {
-  const img = document.createElement('img')
-  img.src = url
-  img.crossOrigin = 'anonymous'
+  const img = document.createElement('img');
+  img.src = url;
+  img.crossOrigin = 'anonymous';
 
   return new Promise((resolve, reject) => {
-    img.onload = () => resolve(img)
-    img.onerror = reject
+    img.onload = () => resolve(img);
+    img.onerror = ev => {
+      reject(ev);
+      return null;
+    }
   })
 }
 
 export const convertSVGtoImg = async (svgUrl) => {
-  const img = await loadImage(svgUrl)
-  const newWidth = 100
-  const newHeight = Math.floor(img.naturalHeight * 100 / img.naturalWidth)
+  let response = null;
+  try {
+    const img = await loadImage(svgUrl);
+    if (!img) return null;
 
-  const canvas = document.createElement('canvas')
-  canvas.width = newWidth
-  canvas.height = newHeight
-  canvas.getContext('2d').drawImage(img, 0, 0, newWidth, newHeight)
+    const newWidth = 100;
+    const newHeight = Math.floor(img.naturalHeight * 100 / img.naturalWidth);
+    const canvas = document.createElement('canvas');
 
-  const url = await canvas.toDataURL(`image/png`, 1.0)
-  console.log(url, newWidth, newHeight);
-  return {url, width: newWidth, height: newHeight}
+    canvas.width = newWidth;
+    canvas.height = newHeight;
+    canvas.getContext('2d').drawImage(img, 0, 0, newWidth, newHeight);
+
+    const url = await canvas.toDataURL(`image/png`, 1.0);
+    response = {url, width: newWidth, height: newHeight};
+  } catch (ex) {
+    console.log('Error loading summit logo', ex);
+  }
+
+  return response;
 }

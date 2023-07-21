@@ -9,11 +9,11 @@ insert_final_newline = true
 
 [{*.css,*.scss}]
 indent_style = space
-indent_size = 4
+indent_size = 2
 
 [{*.js,*.jsx,*.tsx,*.ts,*.mjs}]
 indent_style = space
-indent_size = 4
+indent_size = 2
 
 [*.json]
-indent_size = 4
+indent_size = 2
