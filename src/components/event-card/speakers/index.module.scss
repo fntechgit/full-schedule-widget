@@ -1,4 +1,3 @@
-@import "../../../styles/colors";
 @import "../../../styles/global-classes";
 
 .wrapper.withPic {
@@ -53,7 +52,7 @@
     }
 
     .nameWrapper {
-      background-color: white;
+      background-color: var(--color_background_light);
       height: 100%;
       padding: 5px;
       border-radius: 0 4px 4px 0;

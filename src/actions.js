@@ -38,14 +38,6 @@ export const loadSettings = (settings) => (dispatch) => {
 
     dispatch(createAction(LOAD_INITIAL_VARS)(settings));
 
-    // apply marketing styles
-    Object.entries(settings.marketingSettings).forEach(([key, value]) => {
-        if (getComputedStyle(document.documentElement).getPropertyValue(`--${key}`)) {
-            document.documentElement.style.setProperty(`--${key}`, value);
-            document.documentElement.style.setProperty(`--${key}50`, `${value}50`);
-        }
-    });
-
     dispatch(stopWidgetLoading());
 
     return Promise.resolve();

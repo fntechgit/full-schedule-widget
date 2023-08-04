@@ -1,13 +1,12 @@
-@import "src/styles/colors";
 @import "src/styles/global-classes";
 
 .outerWrapper {
   padding: 12px;
-  color: #5e5f62;
-  background-color: white;
+  color: var(--color_text_dark);
+  background-color: var(--color_background_light);
   overflow-y: scroll;
   overflow-x: hidden;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px 0 var(--color_background_dark), 0 2px 4px 0 var(--color_background_dark);
   z-index: 2;
   @media(min-width: 768px) {
     width: 440px;
@@ -37,10 +36,14 @@
 
       .closeButton {
         background: transparent;
+        color: var(--color_text_dark);
         border: 0;
         padding: 0;
         font-size: 16px;
         line-height: 10px;
+        position: absolute;
+        right: 6px;
+        top: 4px;
 
         @media(max-width: 768px) {
           font-size: 28px;

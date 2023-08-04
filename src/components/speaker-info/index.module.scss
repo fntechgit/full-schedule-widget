@@ -1,4 +1,3 @@
-@import "../../styles/colors";
 @import "../../styles/global-classes";
 
 .wrapper {
@@ -68,7 +67,7 @@
     margin-top: 10px;
 
     .action {
-      background-color: white;
+      background-color: var(--color_background_light);
       border: 1px solid #5e5f62;
       margin-right: 5px;
       border-radius: 4px;
