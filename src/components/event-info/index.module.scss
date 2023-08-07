@@ -6,7 +6,7 @@
   background-color: var(--color_background_light);
   overflow-y: scroll;
   overflow-x: hidden;
-  box-shadow: 0 2px 4px 0 var(--color_background_dark), 0 2px 4px 0 var(--color_background_dark);
+  box-shadow: 0 2px 4px 0 lightgrey, 0 2px 4px 0 lightgrey;
   z-index: 2;
   @media(min-width: 768px) {
     width: 440px;

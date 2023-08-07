@@ -86,8 +86,8 @@
 }
 
 .popover {
-  background-color: white;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  background-color: var(--color_background_light);
+  box-shadow: 0 2px 4px 0 lightgrey, 0 2px 4px 0 lightgray;
   z-index: 50;
   @media(max-width: 768px) {
     inset: 0!important;
@@ -109,7 +109,7 @@
       }
     }
     .arrow {
-      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 4px 0 lightgray, 0 2px 4px 0 lightgray;
     }
   }
 }
