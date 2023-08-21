@@ -12,6 +12,7 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import EventList from '../components/event-list';
 import Calendar from './calendar';
@@ -169,6 +170,14 @@ class Schedule extends React.Component {
     );
   }
 }
+
+Schedule.propTypes = {
+  summitLogoPrint: PropTypes.string,
+};
+
+Schedule.defaultProps = {
+  summitLogoPrint: false,  
+};
 
 function mapStateToProps(scheduleReducer) {
   return {
