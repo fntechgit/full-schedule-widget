@@ -113,6 +113,7 @@ class Schedule extends React.Component {
       changeView,
       changeTimezone,
       loggedUser,
+      summitLogoPrint
     } = this.props;
     const { time_zone_id: timeZoneId, time_zone_label: summitTimezoneLabel } =
       summitState || {};
@@ -139,6 +140,7 @@ class Schedule extends React.Component {
             onShare={() => this.toggleShareModal(true)}
             showSync={settings.showSync}
             showPrint={settings.showPrint}
+            summitLogoPrint={summitLogoPrint}
           />
         </div>
         <div className={styles.innerWrapper}>
