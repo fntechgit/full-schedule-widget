@@ -41,6 +41,8 @@ Full version React component for the show schedule
    modalSyncTitle   = title copy for modal sync functionality
 
    modalSyncText    = body copy for modal sync functionality
+
+   summitLogoPrint  = custom logo to use at print schedule
    
 
 ## PUBLISH TO NPM:

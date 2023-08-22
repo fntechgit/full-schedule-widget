@@ -14,7 +14,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Document, Page, StyleSheet, View, Text, Image } from '@react-pdf/renderer';
-import { convertSVGtoImg, getHosts, getLocation } from '../tools/utils';
+import { convertImageToImgData, getHosts, getLocation } from '../tools/utils';
 import { epochToMomentTimeZone } from 'openstack-uicore-foundation/lib/utils/methods';
 
 // Create styles
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const PrintView = ({ events, summit, nowUtc }) => {
+const PrintView = ({ events, summit, summitLogo, nowUtc }) => {
   const [imgData, setImgData] = useState(null);
   const [loading, setLoading] = useState(true);
   const getSpeakers = (event) => {
@@ -134,17 +134,18 @@ const PrintView = ({ events, summit, nowUtc }) => {
   const summitEnd = epochToMomentTimeZone(summit.end_date, summit.time_zone_id).format('MMMM Do YYYY');
 
   useEffect(() => {
-    if (summit.logo) {
+    const printLogo = summitLogo || summit.logo
+    if (printLogo) {
       setLoading(true);
       const getPngLogo = async () => {
-        const _imgData = await convertSVGtoImg(summit.logo);
+        const _imgData = await convertImageToImgData(printLogo);
         setImgData(_imgData);
         setLoading(false);
       }
 
       getPngLogo();
     }
-  }, [summit.logo])
+  }, [summitLogo, summit.logo])
 
   if (loading) return null;
 
