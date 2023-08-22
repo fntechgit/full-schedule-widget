@@ -145,7 +145,7 @@ const PrintView = ({ events, summit, summitLogo, nowUtc }) => {
 
       getPngLogo();
     }
-  }, [summitLogo || summit.logo])
+  }, [summitLogo, summit.logo])
 
   if (loading) return null;
 
