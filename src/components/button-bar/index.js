@@ -64,7 +64,7 @@ const ButtonBar = ({
           {downloadPdf &&
             <PDFDownloadLink
               className={`${styles.button} ${styles.cal}`}
-              document={<PrintView events={props.events} summit={props.summit} nowUtc={props.settings.nowUtc}/>}
+              document={<PrintView events={props.events} summit={props.summit} summitLogo={props.summitLogoPrint} nowUtc={props.settings.nowUtc}/>}
               fileName="schedule.pdf"
             >
               {({ blob, url, loading, error }) => {

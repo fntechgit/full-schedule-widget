@@ -189,10 +189,10 @@ const loadImage = async url => {
   })
 }
 
-export const convertSVGtoImg = async (svgUrl) => {
+export const convertImageToImgData = async (imageUrl) => {
   let response = null;
   try {
-    const img = await loadImage(svgUrl);
+    const img = await loadImage(imageUrl);
     if (!img) return null;
 
     const newWidth = 100;
