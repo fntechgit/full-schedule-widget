@@ -176,7 +176,7 @@ Schedule.propTypes = {
 };
 
 Schedule.defaultProps = {
-  summitLogoPrint: false,  
+  summitLogoPrint: null,  
 };
 
 function mapStateToProps(scheduleReducer) {
