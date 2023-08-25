@@ -96,7 +96,7 @@
 %button-small-primary {
   border-radius: 4px;
   height: 39px;
-  color: var(--color_text_light);
+  color: white;
   background-color: var(--color_secondary);
   font-size: 15px;
   line-height: 18px;
@@ -107,7 +107,7 @@
 %button-small-secondary {
   border-radius: 4px;
   height: 39px;
-  color: var(--color_text_med);
+  color: var(--color_gray_darker);
   background-color: var(--color_gray_light);
   font-size: 15px;
   line-height: 18px;
@@ -118,7 +118,7 @@
 %button-small-outline {
   border-radius: 4px;
   height: 39px;
-  background-color: white;
+  background-color: var(--color_background_light);
   font-size: 15px;
   border: 1px solid var(--color_gray_dark);
   color: var(--color_text_dark);
@@ -128,10 +128,10 @@
   @extend %font-regular;
 }
 
-%button-toggle {
+%button-toggle, %button-toggle:focus {
   border-radius: 4px;
   height: 39px;
-  background-color: white;
+  background-color: var(--color_background_light);
   font-size: 15px;
   border: 1px solid var(--color_gray_light);
   color: var(--color_text_dark);

@@ -1,4 +1,3 @@
-@import "../../../styles/colors";
 @import "../../../styles/global-classes";
 
 .wrapper.withPic {
@@ -53,7 +52,7 @@
     }
 
     .nameWrapper {
-      background-color: white;
+      background-color: var(--color_background_light);
       height: 100%;
       padding: 5px;
       border-radius: 0 4px 4px 0;
@@ -87,8 +86,8 @@
 }
 
 .popover {
-  background-color: white;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  background-color: var(--color_background_light);
+  box-shadow: 0 2px 4px 0 lightgrey, 0 2px 4px 0 lightgray;
   z-index: 50;
   @media(max-width: 768px) {
     inset: 0!important;
@@ -110,7 +109,7 @@
       }
     }
     .arrow {
-      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 4px 0 lightgray, 0 2px 4px 0 lightgray;
     }
   }
 }
