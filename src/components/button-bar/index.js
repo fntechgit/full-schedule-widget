@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { scroller } from 'react-scroll/modules';
 import PrintView from '../print-view';
@@ -24,10 +24,6 @@ const ButtonBar = ({
   const isLocalTZ = timezone === 'local';
   const timezoneLabel = isLocalTZ ? 'Your Local Timezone' : summitTimezoneLabel;
   const [downloadPdf, setDownloadPdf] = useState(false);
-
-  useEffect(() => {
-    scroller.scrollTo('currentHour');
-  }, [currentHour]);
 
   return (
     <div className={styles.wrapper}>
