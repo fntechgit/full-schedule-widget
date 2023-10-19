@@ -66,22 +66,25 @@ class Schedule extends React.Component {
       shareLink: prevShareLink,
       view: prevView,
       timezone: prevTimezone,
+      lastDataSync: prevlastDataSync
     } = prevProps;
-    const { events, updateEvents, shareLink, view, updateSettings, timezone } =
-      this.props;
+    const { events, shareLink, view, timezone, lastDataSync } = this.props;
 
     const eventsChanged = !arrayEquals(prevEvents, events);
+    const updateEvents = timezone !== prevTimezone || lastDataSync !== prevlastDataSync;
+
+    console.log('componentDidUpdate', updateEvents, lastDataSync, prevlastDataSync)
 
     if (
       shareLink !== prevShareLink ||
       view !== prevView ||
       timezone !== prevTimezone
     ) {
-      updateSettings({ shareLink, view, timezone });
+      this.props.updateSettings({ shareLink, view, timezone });
     }
 
-    if (eventsChanged || timezone !== prevTimezone) {
-      updateEvents(events);
+    if (eventsChanged || updateEvents) {
+      this.props.updateEvents(events);
     }
   }
 
