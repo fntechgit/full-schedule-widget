@@ -51,9 +51,7 @@ const Calendar = ({
   };
 
   const {
-    hasMousePosition,
     handleMouseEvent,
-    resetMousePosition,
     trigger,
     parentRef
   } = useMousePositionAsTrigger();
@@ -74,12 +72,16 @@ const Calendar = ({
   }, []);
 
   useEffect(() => {
-    if (eventDetails) {
-      const scheduleHasEvent = events.find(ev => ev.id === eventDetails.id);
-      if (!scheduleHasEvent)
+    if (eventDetails && showEventInfo) {
+      const event = events.find(ev => ev.id === eventDetails.id);
+      if (event) {
+        // update event in case it changed
+        setEventDetails(event);
+      } else {
         onEventInfoClose();
+      }
     }
-  }, [events?.length])
+  }, [events?.length, settings.lastDataSync])
 
   const onSendEmail = (email) => {
     if (window && typeof window !== 'undefined') {
@@ -100,6 +102,7 @@ const Calendar = ({
     onEmail: onSendEmail,
   };
 
+
   return (
     <div ref={parentRef} className={styles.eventList}>
       { filteredGroupedEvents.length === 0 && (
@@ -118,9 +121,7 @@ const Calendar = ({
         />
       ))}
       { enableLayer && renderLayer(
-        <div
-          {...layerProps}
-        >
+        <div {...layerProps}>
           <Fade
             in={showEventInfo}
             onExited={() => setEnableLayer(false)}
