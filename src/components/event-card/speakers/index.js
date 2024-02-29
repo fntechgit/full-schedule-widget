@@ -61,7 +61,7 @@ const SpeakerPopover = ({
                 </div>
                 <div className={styles.nameWrapper}>
                     <div className={styles.name}>
-                        {speaker.first_name} {speaker.last_name} {isModerator && <Badge pill bg="danger">Moderator</Badge>}
+                        {speaker.first_name} {speaker.last_name} {isModerator && <Badge className={styles.moderator} pill bg="danger">Moderator</Badge>}
                     </div>
                     {speaker.title &&
                     <div className={styles.job}>
