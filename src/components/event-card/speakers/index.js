@@ -18,13 +18,16 @@ import { useIsMobileScreen } from '../../../tools/utils';
 import SpeakerInfo from '../../speaker-info';
 import {getHosts} from '../../../tools/utils';
 
+import { Badge } from 'react-bootstrap';
+
 import styles from './index.module.scss'
 
 const SpeakerPopover = ({
     speaker,
     onChat,
     onEmail,
-    showSendEmail
+    showSendEmail,
+    isModerator
 }) => {
 
     const isMobile = useIsMobileScreen();
@@ -58,7 +61,7 @@ const SpeakerPopover = ({
                 </div>
                 <div className={styles.nameWrapper}>
                     <div className={styles.name}>
-                        {speaker.first_name} {speaker.last_name}
+                        {speaker.first_name} {speaker.last_name} {isModerator && <Badge pill bg="danger">Moderator</Badge>}
                     </div>
                     {speaker.title &&
                     <div className={styles.job}>
@@ -104,6 +107,8 @@ const Speakers = ({
     showSendEmail
 }) => {
 
+    const moderatorId = event.moderator?.id;
+
     const getSpeakersWithPic = () => {
         return getHosts(event).map((speaker, i) =>
             <SpeakerPopover
@@ -111,6 +116,7 @@ const Speakers = ({
                 speaker={speaker}
                 onChat={onChat}
                 onEmail={onEmail} 
+                isModerator={speaker.id === moderatorId}
                 showSendEmail={showSendEmail}
             />
         );

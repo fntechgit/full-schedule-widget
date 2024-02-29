@@ -69,6 +69,7 @@
 
   .name {
     @extend %title-tiny;
+    width: max-content;
   }
 
   .job {
