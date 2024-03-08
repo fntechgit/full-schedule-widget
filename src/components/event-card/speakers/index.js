@@ -61,7 +61,7 @@ const SpeakerPopover = ({
                 </div>
                 <div className={styles.nameWrapper}>
                     <div className={styles.name}>
-                        {speaker.first_name} {speaker.last_name} {isModerator && <Badge className={styles.moderator} pill bg="danger">Moderator</Badge>}
+                        {speaker.first_name} {speaker.last_name} {isModerator && <Badge className={styles.moderator} pill>Moderator</Badge>}
                     </div>
                     {speaker.title &&
                     <div className={styles.job}>
@@ -84,7 +84,7 @@ const SpeakerPopover = ({
                     <SpeakerInfo
                         speaker={speaker}
                         onChat={onChat}
-                        onEmail={onEmail} 
+                        onEmail={onEmail}
                         howSendEmail={showSendEmail}
                     />
                     <Arrow
@@ -115,7 +115,7 @@ const Speakers = ({
                 key={`ev-${event.id}-speaker-${speaker.id}-${i}`}
                 speaker={speaker}
                 onChat={onChat}
-                onEmail={onEmail} 
+                onEmail={onEmail}
                 isModerator={speaker.id === moderatorId}
                 showSendEmail={showSendEmail}
             />
