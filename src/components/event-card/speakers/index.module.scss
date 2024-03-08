@@ -69,6 +69,12 @@
 
   .name {
     @extend %title-tiny;
+    width: max-content;
+  }
+
+  .moderator {
+    font-size: 12px;
+    background-color: var(--color_alerts) !important;
   }
 
   .job {
